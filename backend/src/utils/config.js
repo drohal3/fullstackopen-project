@@ -6,7 +6,10 @@ const MONGODB_URI =
     ? process.env.TEST_MONGO_URL
     : process.env.MONGO_URL;
 
+const NODE_ENV = process.env.NODE_ENV
+
 module.exports = {
   MONGODB_URI,
   PORT,
+  NODE_ENV
 };

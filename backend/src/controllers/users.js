@@ -1,10 +1,15 @@
 const bcrypt = require("bcrypt");
+const config = require('../utils/config')
 const usersRouter = require("express").Router();
 const User = require("../models/user");
 
 usersRouter.get("/", async (request, response, next) => {
+  if (config.NODE_ENV !== "development") {
+    return response.status(404).send({ error: "unknown endpoint" });
+  }
+
   try {
-    const users = await User.find({}); // TODO: password hash should not be present?
+    const users = await User.find({});
     response.json(users);
   } catch (error) {
     next(error);
