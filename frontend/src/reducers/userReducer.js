@@ -1,4 +1,6 @@
+
 import { createSlice } from '@reduxjs/toolkit'
+import loginService from '../services/login'
 
 const initialState = {
   token: null,
@@ -6,25 +8,34 @@ const initialState = {
   name: null
 }
 
-const userSlice = createSlice({
+const userSlice = createSlice({ // TODO: use cookies/cache instead
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action) => { //login
+    set: (state, action) => { //login
+      console.log("step 3 - changing the state, new state: ", action.payload)
       return action.payload
     },
-    resetUser: () => { //logout
+    reset: () => { //logout
       return initialState
     }
   }
 })
 
-export const { setUser, resetUser } = userSlice.actions;
+export const { set, reset } = userSlice.actions;
 
-export const signIn = (username, password) => {
-  return async (dispatch) => {
-    const user = null; // TODO: some validation
-    dispatch(setUser(user));
+
+export const setUser = (user) => {
+
+  console.log("step 2 - user reducer", user);
+  return (dispatch) => { // TODO: caches/cookies?
+    dispatch(set(user));
+  }
+}
+
+export const signOut = () => {
+  return (dispatch) => {
+    dispatch(reset());
   }
 }
 

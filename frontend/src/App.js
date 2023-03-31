@@ -1,20 +1,31 @@
-import { Typography, CssBaseline, AppBar, Toolbar, Container } from "@mui/material";
-import SupportIcon from '@mui/icons-material/Support';
-import SignIn from "./components/user/SignIn";
+import { useDispatch } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { setUser } from "./reducers/userReducer";
+
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import NoPage from "./pages/NoPage";
 function App() {
+  const dispatch = useDispatch();
+
+  const user = window.localStorage.getItem("UATalkUser")
+
+  console.log("step 1 - set user in App.js, user: ", user)
+  if (user) {
+    dispatch(setUser(JSON.parse(user)))
+  }
+
   return (
-    <>
-      <CssBaseline/>
-      <AppBar position="relative">
-        <Toolbar>
-          <SupportIcon/>
-          <Typography variant="h6">UaTalk</Typography>
-        </Toolbar>
-      </AppBar>
-      <main>
-        <SignIn />
-      </main>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="register" element={<SignUp />} />
+        <Route path="login" element={<SignIn />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

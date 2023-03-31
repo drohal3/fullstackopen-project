@@ -13,6 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import {useDispatch, useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import loginService from '../../services/login'
+import {useEffect} from "react";
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,13 +35,39 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+  const user = useSelector((state) => {
+    return state.user
+  })
+
+  useEffect( () => {
+    if (user.token) { //redirect to home if user already logged in
+      navigate('/');
+    }
+  })
+
+
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const email = data.get('email');
+    const password = data.get('password');
+
+    console.log({ email, password });
+
+    try {
+      // dispatch(signIn(email, password));
+      const user = await loginService.login({username: email, password})
+      window.localStorage.setItem(
+        "UATalkUser",
+        JSON.stringify(user)
+      );
+      navigate('/');
+    } catch (e) {
+      // TODO:
+    }
+
   };
 
   return (
