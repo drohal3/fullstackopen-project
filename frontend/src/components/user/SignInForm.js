@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useEffect} from "react";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,8 +18,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+
 import loginService from '../../services/login'
-import {useEffect} from "react";
+import { setUser } from "../../reducers/userReducer";
 
 function Copyright(props) {
   return (
@@ -34,8 +37,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignInForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => {
     return state.user
   })
@@ -54,15 +59,16 @@ export default function SignIn() {
     const email = data.get('email');
     const password = data.get('password');
 
+
     console.log({ email, password });
 
     try {
-      // dispatch(signIn(email, password));
       const user = await loginService.login({username: email, password})
       window.localStorage.setItem(
         "UATalkUser",
         JSON.stringify(user)
       );
+      dispatch(setUser(user));
       navigate('/');
     } catch (e) {
       // TODO:

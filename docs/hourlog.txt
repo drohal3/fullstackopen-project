@@ -2,3 +2,5 @@
 2023/03/25 - 2h preparation
 2023/03/27 - 7.5h setting up frontend/backend app, backend for login, documentation, setting up MongoDB in Docker
 2023/03/28 - 6h material ui
+2023/03/31 - 5h log in frontend and router
+2023/04/03 - 3h solving a problem with state when logging in

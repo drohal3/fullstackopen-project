@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import NoPage from "./pages/NoPage";
+import SignOut from "./pages/SignOut";
 function App() {
   const dispatch = useDispatch();
 
@@ -23,6 +24,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="register" element={<SignUp />} />
         <Route path="login" element={<SignIn />} />
+        <Route path="logout" element={<SignOut />} />
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

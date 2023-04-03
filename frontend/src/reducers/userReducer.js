@@ -34,6 +34,7 @@ export const setUser = (user) => {
 }
 
 export const signOut = () => {
+  window.localStorage.removeItem("UATalkUser")
   return (dispatch) => {
     dispatch(reset());
   }
