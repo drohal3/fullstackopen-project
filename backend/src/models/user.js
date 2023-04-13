@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const config = require("../utils/config");
-const logger = require("../utils/logger");
+const mongoose= require("mongoose");
+const config= require("../utils/config");
+const logger= require("../utils/logger");
 
 const url = config.MONGODB_URI; // needs to be configured in .env file
 
@@ -16,13 +16,29 @@ mongoose
   });
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, minLength: 3, unique: true, required: true },
-  name: { type: String, required: true },
+  email: {
+    type: String,
+    minLength: 6,
+    unique: true,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  gender: {
+    type: String,
+    required: true
+  },
   passwordHash: String,
-  blogs: [
+  articles: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Blog",
+      ref: "Article",
     },
   ],
 });

@@ -4,9 +4,9 @@ const usersRouter = require("express").Router();
 const User = require("../models/user");
 
 usersRouter.get("/", async (request, response, next) => {
-  if (config.NODE_ENV !== "development") {
-    return response.status(404).send({ error: "unknown endpoint" });
-  }
+  // if (config.NODE_ENV !== "development") {
+  //   return response.status(404).send({ error: "unknown endpoint" });
+  // }
 
   try {
     const users = await User.find({});
@@ -17,7 +17,7 @@ usersRouter.get("/", async (request, response, next) => {
 });
 
 usersRouter.post("/", async (request, response, next) => {
-  const { username, name, password } = request.body;
+  const { email, firstName, lastName, gender, password } = request.body;
 
   if (password === undefined || password.length < 3) {
     return response
@@ -29,7 +29,7 @@ usersRouter.post("/", async (request, response, next) => {
   const passwordHash = await bcrypt.hash(password, salt);
 
   try {
-    const user = new User({ username, name, passwordHash });
+    const user = new User({ email, firstName, lastName, gender, passwordHash });
     const newUser = await user.save();
     response.status(201).json(newUser);
   } catch (error) {

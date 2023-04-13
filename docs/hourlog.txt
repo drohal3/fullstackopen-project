@@ -4,3 +4,7 @@
 2023/03/28 - 6h material ui
 2023/03/31 - 5h log in frontend and router
 2023/04/03 - 3h solving a problem with state when logging in
+2023/04/06 - 4h backend for articles
+2023/04/09 - 2h research for layout
+2023/04/11 - 8h article components and services
+2023/04/13 -

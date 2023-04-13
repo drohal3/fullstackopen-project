@@ -1,6 +1,7 @@
 import { AppBar, CssBaseline, Toolbar, Typography } from "@mui/material";
 import SupportIcon from "@mui/icons-material/Support";
 import { useSelector } from "react-redux";
+import TopNav from "./Layout/TopNav";
 
 import Nav from "../components/layout/Nav";
 
@@ -9,18 +10,10 @@ function Home() {
     return state.user
   })
 
-  console.log("user in Home", user)
-  console.log("token", user.token)
-
   return (
-    <>
-      <CssBaseline/>
-      <Nav />
-      <main>
-
-        <p>main</p>
-      </main>
-    </>
+    <TopNav>
+      <p>Home</p>
+    </TopNav>
   );
 }
 

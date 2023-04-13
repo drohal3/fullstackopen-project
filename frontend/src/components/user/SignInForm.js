@@ -18,22 +18,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 import loginService from '../../services/login'
 import { setUser } from "../../reducers/userReducer";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { Link as RouterLink } from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -63,7 +51,7 @@ export default function SignInForm() {
     console.log({ email, password });
 
     try {
-      const user = await loginService.login({username: email, password})
+      const user = await loginService.login({email, password})
       window.localStorage.setItem(
         "UATalkUser",
         JSON.stringify(user)
@@ -76,6 +64,7 @@ export default function SignInForm() {
 
   };
 
+  // noinspection JSValidateTypes
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -134,14 +123,13 @@ export default function SignInForm() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link component={RouterLink} to="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );

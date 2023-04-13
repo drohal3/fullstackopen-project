@@ -1,26 +1,19 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import { signOut } from '../reducers/userReducer'
 
 function SignOut() {
-  const user = useSelector((state) => {
-    return state.user
-  })
-
-  const navigate = useNavigate();
-
-  if (!user.token) {
-    navigate('/')
-  }
 
   const dispatch = useDispatch();
 
-
-  dispatch(signOut())
+  useEffect(() => {
+    dispatch(signOut())
+  })
 
   return (
-    <p>logout</p>
+    <Navigate to='/' />
   )
 
 }

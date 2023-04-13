@@ -8,15 +8,21 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import NoPage from "./pages/NoPage";
 import SignOut from "./pages/SignOut";
+
+import ArticleList from "./pages/articles/List";
+import ArticleView from "./pages/articles/View";
+import ArticleCreate from './pages/articles/Create';
+import {useEffect} from "react";
 function App() {
   const dispatch = useDispatch();
 
-  const user = window.localStorage.getItem("UATalkUser")
+  useEffect(() => {
+    const user = window.localStorage.getItem("UATalkUser")
 
-  console.log("step 1 - set user in App.js, user: ", user)
-  if (user) {
-    dispatch(setUser(JSON.parse(user)))
-  }
+    if (user) {
+      dispatch(setUser(JSON.parse(user)))
+    }
+  })
 
   return (
     <BrowserRouter>
@@ -26,6 +32,11 @@ function App() {
         <Route path="login" element={<SignIn />} />
         <Route path="logout" element={<SignOut />} />
         <Route path="*" element={<NoPage />} />
+
+        <Route path="articles" element={<ArticleList />} />
+        <Route path="articles/create" element={<ArticleCreate />} />
+
+        <Route path="articles/:id" element={<ArticleView />} />
       </Routes>
     </BrowserRouter>
   );
