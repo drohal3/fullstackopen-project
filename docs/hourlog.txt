@@ -7,4 +7,4 @@
 2023/04/06 - 4h backend for articles
 2023/04/09 - 2h research for layout
 2023/04/11 - 8h article components and services
-2023/04/13 -
+2023/04/13 - 4h debugging problems with populating user (author) to article and loading article content

@@ -3,23 +3,15 @@ import Container from '@mui/material/Container';
 import {useEffect, useState} from "react";
 import articlesService from "../../services/articles";
 
-function List () {
-  const [articles, setArticles] = useState([]);
+import ArticleList from "../../components/article/ArticleList";
 
-  useEffect( () => {
-    async function fetchArticles() {
-      const articlesLoaded = await articlesService.getAll();
-      setArticles(articlesLoaded);
-    }
-    fetchArticles();
-  })
+function List () {
 
   return (
     <TopNav>
       <Container component="main">
-        {articles.map((article) => (<p key={article.id}>{article.content}</p>))}
+        <ArticleList />
       </Container>
-
     </TopNav>
   )
 }

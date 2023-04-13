@@ -4,13 +4,17 @@ const articlesRouter = require("express").Router();
 const Article = require("../models/article");
 const User = require('../models/user');
 
+const populateAuthor = {
+  id: 1,
+  firstName: 1,
+  lastName: 1,
+  gender: 1,
+  email: 1
+}
+
 articlesRouter.get("/", async (request, response, next) => {
   try {
-    const articles = await Article.find({}).populate("author", {
-      username: 1,
-      name: 1,
-      id: 1,
-    });
+    const articles = await Article.find({}).populate("author", populateAuthor);
 
     response.json(articles);
   } catch (error) {
@@ -20,11 +24,7 @@ articlesRouter.get("/", async (request, response, next) => {
 
 articlesRouter.get("/:id", async (request, response, next) => {
   try {
-    const article = await Article.findById(request.params.id).populate("author", {
-      username: 1,
-      name: 1,
-      id: 1,
-    });
+    const article = await Article.findById(request.params.id).populate("author", populateAuthor);
 
     if (!article) {
       return response.status(404).json({ error: "article not found" });
