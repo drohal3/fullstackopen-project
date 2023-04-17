@@ -1,7 +1,7 @@
 import { AppBar, CssBaseline, Toolbar, Typography } from "@mui/material";
 import SupportIcon from "@mui/icons-material/Support";
 import { useSelector } from "react-redux";
-import TopNav from "./Layout/TopNav";
+import TopNavLayout from "./Layout/TopNavLayout";
 
 import Nav from "../components/layout/Nav";
 
@@ -11,9 +11,9 @@ function Home() {
   })
 
   return (
-    <TopNav>
+    <TopNavLayout>
       <p>Home</p>
-    </TopNav>
+    </TopNavLayout>
   );
 }
 

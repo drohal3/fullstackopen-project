@@ -1,11 +1,11 @@
-import TopNav from "./Layout/TopNav";
+import TopNavLayout from "./Layout/TopNavLayout";
 import SignUpForm from "../components/user/SignUpForm";
 function SignUp() {
   return (
     <>
-      <TopNav logButtons={ false }>
+      <TopNavLayout logButtons={ false }>
         <SignUpForm />
-      </TopNav>
+      </TopNavLayout>
     </>
   )
 }

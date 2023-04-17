@@ -7,4 +7,8 @@ const create = async (userData) => {
   return response.data;
 };
 
-export default { create }
+const changePassword = async (data) => {
+  await axios.post(`${baseUrl}/change-password`, data);
+}
+
+export default { create, changePassword }

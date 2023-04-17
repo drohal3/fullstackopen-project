@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import NoPage from "./pages/NoPage";
 import SignOut from "./pages/SignOut";
+import User from "./pages/user/User"
 
 import ArticleList from "./pages/articles/List";
 import ArticleView from "./pages/articles/View";
@@ -32,6 +33,8 @@ function App() {
         <Route path="login" element={<SignIn />} />
         <Route path="logout" element={<SignOut />} />
         <Route path="*" element={<NoPage />} />
+
+        <Route path="user" element={<User />} />
 
         <Route path="articles" element={<ArticleList />} />
         <Route path="articles/create" element={<ArticleCreate />} />

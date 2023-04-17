@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import articles from "../../services/articles";
 import {useEffect, useState} from "react";
-import TopNav from "../Layout/TopNav";
+import TopNavLayout from "../Layout/TopNavLayout";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from '@mui/material/Box';
@@ -39,7 +39,7 @@ function View() {
 
   return (
     <>
-      <TopNav>
+      <TopNavLayout>
         <CssBaseline />
         <Container maxWidth={false} disableGutters bgcolor = "#f2f6fc">
           <Box sx={{
@@ -56,7 +56,7 @@ function View() {
         <Container component="main">
           {article.content}
         </Container>
-      </TopNav>
+      </TopNavLayout>
 
     </>
   )

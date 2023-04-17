@@ -19,7 +19,7 @@ function Copyright(props) {
   );
 }
 
-function TopNav (props) {
+function TopNavLayout (props) {
   const user = useSelector((state) => {
     return state.user
   })
@@ -78,4 +78,4 @@ function TopNav (props) {
   )
 }
 
-export default TopNav;
+export default TopNavLayout;

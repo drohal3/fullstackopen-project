@@ -42,13 +42,8 @@ export default function SignUpForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      gender: data.get('gender'),
-      email: data.get('email'),
-      password: data.get('password')
-    });
+
+    // TODO: notification and password confirmation
 
     const user = await userService.create({
       firstName: data.get('firstName'),

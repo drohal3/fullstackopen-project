@@ -2,9 +2,11 @@
 
 ## userSchema
 - id
-- username <!-- will be changed to email -->
-- name
+- email 
+- firstName
+- lastName
 - passwordHash
+- TODO: created_at/updated_at
 
 ## articleSchema
 - id
@@ -14,3 +16,4 @@
 - content
 - created_at
 - updated_at
+

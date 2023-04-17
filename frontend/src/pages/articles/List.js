@@ -1,4 +1,4 @@
-import TopNav from "../Layout/TopNav";
+import TopNavLayout from "../Layout/TopNavLayout";
 import Container from '@mui/material/Container';
 import {useEffect, useState} from "react";
 import articlesService from "../../services/articles";
@@ -8,11 +8,11 @@ import ArticleList from "../../components/article/ArticleList";
 function List () {
 
   return (
-    <TopNav>
+    <TopNavLayout>
       <Container component="main">
         <ArticleList />
       </Container>
-    </TopNav>
+    </TopNavLayout>
   )
 }
 

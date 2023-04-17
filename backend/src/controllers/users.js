@@ -3,6 +3,12 @@ const config = require('../utils/config')
 const usersRouter = require("express").Router();
 const User = require("../models/user");
 
+const getPasswordHash = async (password) => {
+  const salt = 10;
+
+  return await bcrypt.hash(password, salt)
+}
+
 usersRouter.get("/", async (request, response, next) => {
   // if (config.NODE_ENV !== "development") {
   //   return response.status(404).send({ error: "unknown endpoint" });
@@ -25,8 +31,7 @@ usersRouter.post("/", async (request, response, next) => {
       .json({ error: "The password must be at least 3 characters long." });
   }
 
-  const salt = 10;
-  const passwordHash = await bcrypt.hash(password, salt);
+  const passwordHash = await getPasswordHash(password);
 
   try {
     const user = new User({ email, firstName, lastName, gender, passwordHash });
@@ -41,6 +46,32 @@ usersRouter.post("/", async (request, response, next) => {
     next(error);
   }
 });
+
+usersRouter.post('/change-password', async (request, response, next) => {
+  const { userId, password, newPassword } = request.body;
+
+  const user = await User.findById(userId)
+
+  console.log("user pswd hash", user.passwordHash);
+
+  if (!user) {
+    return response.status(401).json({ error: "Unauthorized" });
+  }
+
+  const passwordCorrect = await bcrypt.compare(password, user.passwordHash);
+
+
+  if (!passwordCorrect) {
+    return response.status(401).json({
+      error: "Unauthorized"
+    });
+  }
+
+  user.passwordHash = await getPasswordHash(newPassword)
+  user.save()
+
+  return response.status(204).end()
+})
 
 usersRouter.delete("/:id", async (request, response, next) => {
   try {
