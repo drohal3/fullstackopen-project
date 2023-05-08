@@ -36,7 +36,8 @@ usersRouter.post("/", async (request, response, next) => {
   try {
     const user = new User({ email, firstName, lastName, gender, passwordHash });
     const newUser = await user.save();
-    response.status(201).json(newUser);
+
+    response.status(201).json(newUser); // TODO: should remove passwordHash?
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate username
@@ -51,8 +52,6 @@ usersRouter.post('/change-password', async (request, response, next) => {
   const { userId, password, newPassword } = request.body;
 
   const user = await User.findById(userId)
-
-  console.log("user pswd hash", user.passwordHash);
 
   if (!user) {
     return response.status(401).json({ error: "Unauthorized" });

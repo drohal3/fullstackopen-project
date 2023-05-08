@@ -9,3 +9,6 @@
 2023/04/11 - 8h article components and services
 2023/04/13 - 4h debugging problems with populating user (author) to article and loading article content
 2023/04/17 - xh change password API + manual testing, reading material-ui docs to design a user view layout
+2023/04/18 - xh progress with home page material-ui elements
+2023/05/02 -
+2023/05/03 -

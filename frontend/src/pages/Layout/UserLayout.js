@@ -41,8 +41,11 @@ function UserLayout ( props ) {
               </ListItem>
             </List>
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={8}>
             { props.children }
+          </Grid>
+          <Grid item xs={12} sm={1}>
+          {/*  */}
           </Grid>
 
         </Grid>

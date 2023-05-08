@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import articlesService from "../../services/articles";
 import ArticleListItem from "./ArticleListItem";
+import ArticleWall from "./ArticleWall";
 
 
 function ArticleList() {
@@ -18,9 +19,10 @@ function ArticleList() {
 
   return (
     <>
-      {articles.map((article) => (
-        <ArticleListItem key={article.id} article={article}/>
-      ))}
+      {/*{articles.map((article) => (*/}
+      {/*  <ArticleListItem key={article.id} article={article}/>*/}
+      {/*))}*/}
+      <ArticleWall articles={articles} />
     </>
   )
 }
