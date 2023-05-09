@@ -17,6 +17,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Alerts from "../../components/layout/alert/Alerts";
 
 
 
@@ -128,6 +129,7 @@ function TopNavLayout (props) {
 
   return (
     <>
+      <Alerts />
       <Nav>
         <Link
           variant="button"

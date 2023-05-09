@@ -2,8 +2,9 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import articles from "../../services/articles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {addAlert, AlertTypes} from "../../reducers/alertReducer";
 
 
 function ArticleForm() {
@@ -11,6 +12,8 @@ function ArticleForm() {
   const user = useSelector((state) => {
     return state.user
   })
+
+  const dispatch = useDispatch()
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -32,6 +35,7 @@ function ArticleForm() {
 
     if (newArticle && newArticle.id) {
       console.log(newArticle);
+      dispatch(addAlert("Article created successfully", AlertTypes.Success, 3))
       navigate(`/articles/${newArticle.id}`)
     }
   }

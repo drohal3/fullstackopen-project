@@ -19,9 +19,6 @@ function ArticleList() {
 
   return (
     <>
-      {/*{articles.map((article) => (*/}
-      {/*  <ArticleListItem key={article.id} article={article}/>*/}
-      {/*))}*/}
       <ArticleWall articles={articles} />
     </>
   )

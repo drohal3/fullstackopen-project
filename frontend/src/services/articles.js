@@ -40,6 +40,8 @@ const update = async (articleData) => {
 };
 
 const remove = async (articleId) => {
+  console.log("config", config)
+
   const response = await axios.delete(`${baseUrl}/${articleId}`, config);
 
   return response.data;
