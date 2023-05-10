@@ -13,6 +13,7 @@ import User from "./pages/user/User"
 import ArticleList from "./pages/articles/List";
 import ArticleView from "./pages/articles/View";
 import ArticleCreate from './pages/articles/Create';
+import ArticleEdit from './pages/articles/Edit';
 import {useEffect} from "react";
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
         <Route path="articles/create" element={<ArticleCreate />} />
 
         <Route path="articles/:id" element={<ArticleView />} />
+        <Route path="articles/:id/edit" element={<ArticleEdit />} />
       </Routes>
     </BrowserRouter>
   );

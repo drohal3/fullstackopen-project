@@ -1,7 +1,7 @@
 const logger = require("./logger");
 const { response } = require("express");
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const User = require("../mongo/models/user");
 
 const requestLogger = (request, response, next) => {
   logger.info("Method:", request.method);

@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const config = require('../utils/config')
 const usersRouter = require("express").Router();
-const User = require("../models/user");
+const User = require("../mongo/models/user");
 
 const getPasswordHash = async (password) => {
   const salt = 10;

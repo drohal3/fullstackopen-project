@@ -20,7 +20,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "cross-env NODE_ENV=development nodemon src/index"
+    "dev": "cross-env NODE_ENV=development nodemon src/index",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.22"
   }
 }

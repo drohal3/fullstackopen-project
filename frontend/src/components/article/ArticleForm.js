@@ -31,12 +31,13 @@ function ArticleForm() {
       articles.setToken(user.token)
     }
 
-    const newArticle = await articles.create(articleData);
-
-    if (newArticle && newArticle.id) {
+    try {
+      const newArticle = await articles.create(articleData);
       console.log(newArticle);
-      dispatch(addAlert("Article created successfully", AlertTypes.Success, 3))
+      dispatch(addAlert("Article created successfully.", AlertTypes.Success, 3))
       navigate(`/articles/${newArticle.id}`)
+    } catch (e) {
+      dispatch(addAlert("Something went wrong!", AlertTypes.Error, 3))
     }
   }
 

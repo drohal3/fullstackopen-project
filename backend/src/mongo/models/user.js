@@ -1,6 +1,6 @@
 const mongoose= require("mongoose");
-const config= require("../utils/config");
-const logger= require("../utils/logger");
+const config= require("../../utils/config");
+const logger= require("../../utils/logger");
 
 const url = config.MONGODB_URI; // needs to be configured in .env file
 

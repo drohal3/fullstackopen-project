@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const config = require('../utils/config')
 const articlesRouter = require("express").Router();
-const Article = require("../models/article");
-const User = require('../models/user');
+const Article = require("../mongo/models/article");
+const User = require('../mongo/models/user');
 
 const populateAuthor = {
   id: 1,
@@ -10,6 +10,16 @@ const populateAuthor = {
   lastName: 1,
   gender: 1,
   email: 1
+}
+
+const validateArticle = (article) => {
+  if (article.title === undefined) {
+    throw new Error("title is required");
+  }
+
+  if (article.content === undefined) {
+    throw new Error("content is required");
+  }
 }
 
 articlesRouter.get("/", async (request, response, next) => {
@@ -37,12 +47,11 @@ articlesRouter.get("/:id", async (request, response, next) => {
 });
 
 articlesRouter.post('/', async (request, response, next) => {
-  if (request.body.title === undefined) {
-    return response.status(400).json({ error: "title is required" });
-  }
 
-  if (request.body.content === undefined) {
-    return response.status(400).json({ error: "content is required" });
+  try {
+    validateArticle(request.body)
+  } catch (e) {
+    return response.status(400).json({ error: e.message });
   }
 
   const user = request.user;
@@ -57,13 +66,32 @@ articlesRouter.post('/', async (request, response, next) => {
     const newArticle = await article.save();
     const userToUpdate = await User.findById(user.id);
     console.log("userToUpdate", userToUpdate)
-    userToUpdate.articles.concat(newArticle._id) //TODO: id or _id?
+    userToUpdate.articles.concat(newArticle._id) // TODO: does this work?
     await userToUpdate.save();
     response.status(201).json(newArticle);
   } catch (e) {
     next(e);
   }
 });
+
+articlesRouter.put('/', async (request, response, next) => {
+  try {
+    validateArticle(request.body)
+  } catch (e) {
+    return response.status(400).json({ error: e.message });
+  }
+
+  try {
+    const article = await Article.findById(request.params.id);
+    // TODO: validate user
+    const docs = await Article.updateOne({_id:request.body.id}, request.body)
+    response.send(docs);
+  } catch (e) {
+    next(e)
+  }
+
+
+})
 
 articlesRouter.delete("/:id", async (request, response, next) => {
   const user = request.user;
@@ -80,7 +108,11 @@ articlesRouter.delete("/:id", async (request, response, next) => {
         return response.status(401).json({ error: "unauthorized" });
       }
 
+      const userToUpdate = await User.findById(user.id);
+      userToUpdate.articles.filter(a => article.id !== a.id) // TODO: does this work?
       await article.deleteOne();
+      await userToUpdate.save()
+
     }
 
     return response.status(204).end();

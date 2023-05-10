@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import TopNavLayout from "../Layout/TopNavLayout";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from '@mui/material/Box';
 import {useSelector} from "react-redux";
 import articlesService from "../../services/articles";
 import Cover from "../../components/layout/Cover";
@@ -45,7 +44,6 @@ function ArticleActionButtons( { user, article } ) {
   };
 
   const handleDelete = async () => {
-    console.log("TODO:")
     try {
       await articlesService.remove(article.id)
     } catch (e) {
@@ -83,7 +81,7 @@ function ArticleActionButtons( { user, article } ) {
         </DialogActions>
       </Dialog>
       <Stack direction="row" flexWrap="wrap" spacing={{ xs: 1, sm: 2 }}>
-        <Button variant="outlined" startIcon={<EditIcon />}>
+        <Button variant="outlined" startIcon={<EditIcon />} onClick={() => navigate(`/articles/${article.id}/edit`)}>
           Edit
         </Button>
         <Button variant="outlined" startIcon={<DeleteIcon />} onClick={handleClickOpen}>
@@ -141,7 +139,6 @@ function View() {
           </Grid>
         </Container>
       </TopNavLayout>
-
     </>
   )
 }

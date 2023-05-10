@@ -15,7 +15,7 @@ export const AlertTypes = {
 
 const dummyState = [{message: "test", type: AlertTypes.Info, alertId: "1"}]
 
-const initialState = dummyState;
+const initialState = []
 
 const alertSlice = createSlice({
   name: "alerts",
