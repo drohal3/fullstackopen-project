@@ -1,19 +1,8 @@
 const mongoose = require("mongoose");
-const config = require("../../utils/config");
-const logger = require("../../utils/logger");
 
-const url = config.MONGODB_URI; // needs to be configured in .env file
+const { connectDB } = require("../database")
 
-logger.info("connecting to", url);
-
-mongoose
-  .connect(url)
-  .then(() => {
-    logger.info("connected to MongoDB");
-  })
-  .catch((error) => {
-    logger.error("error connecting to MongoDB:", error.message);
-  });
+// connectDB()
 
 const articleSchema = new mongoose.Schema({
   author: {

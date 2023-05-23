@@ -5,12 +5,13 @@ const appConfig = require('./utils/config')
 require("dotenv").config();
 
 // routers
-const testRouter = require('./controllers/test');
+// const testRouter = require('./controllers/test');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const articleRouter = require('./controllers/articles');
-const {config} = require("dotenv"); // TODO: Is this really needed?
+// const {config} = require("dotenv"); // TODO: Is this really needed?
 const middleware = require('./utils/middleware');
+const { connectDB } = require("./mongo/database")
 
 app.use(cors());
 app.use(express.json());
@@ -18,12 +19,14 @@ app.use(middleware.tokenExtractor);
 app.use(middleware.userExtractor);
 app.use(middleware.requestLogger);
 
+connectDB()
+
 if (appConfig.NODE_ENV === "test") {
   const testingRouter = require("./controllers/testing");
   app.use("/api/testing", testingRouter);
 }
 
-app.use('/api/test', testRouter);
+// app.use('/api/test', testRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/articles', articleRouter);
