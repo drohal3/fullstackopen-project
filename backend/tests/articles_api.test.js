@@ -10,8 +10,20 @@ const User = require('../src/mongo/models/user')
 const Article = require('../src/mongo/models/article')
 
 const initialArticles= [{
-
+  "title": "initial article 1",
+  "abstract": "test abstract, test abstract, test abstract, test abstract, test abstract," +
+    "test abstract, test abstract, test abstract, test abstract, test abstract, ",
+  "content": "test content test content test content test content test content test content test content test content " +
+    "test content test content test content test content test content test content test content test content test content "
 }]
+
+const newArticle = {
+  "title": "test article 1",
+  "abstract": "test abstract, test abstract, test abstract, test abstract, test abstract," +
+    "test abstract, test abstract, test abstract, test abstract, test abstract, ",
+  "content": "test content test content test content test content test content test content test content test content " +
+    "test content test content test content test content test content test content test content test content test content "
+}
 
 afterAll(() => {
   mongoose.connection.close()
@@ -47,15 +59,58 @@ describe('article api', () => {
   })
 
   test('return status 401 if token not provided', async () => {
-    expect("a").toEqual("a")
-    const newArticle = {
-      "title": "test article 1",
-      "abstract": "test abstract, test abstract, test abstract, test abstract, test abstract," +
-        "test abstract, test abstract, test abstract, test abstract, test abstract, ",
-      "content": "test content test content test content test content test content test content test content test content " +
-        "test content test content test content test content test content test content test content test content test content "
+    await api.post('/api/articles').send(newArticle).expect(401)
+  })
+
+  test('return status 201 and create article when article created', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    const retArticle = await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
+
+    expect(savedArticle.body.id).toBe(retArticle.body.id)
+  })
+
+  test('Removed article should be removed', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    const veryLikelyInvalidID = "6470aedff2a04acc4ed8dfc8"
+    await api.delete(`/api/articles/${veryLikelyInvalidID}`).set(header).expect(204)
+    await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
+    await api.delete(`/api/articles/${savedArticle.body.id}`).set(header).expect(204)
+    await api.get(`/api/articles/${savedArticle.body.id}`).expect(404)
+
+    // const author = await api.get(`/api/users/${savedArticle.body.author}`).expect(200)
+  })
+
+  test('article should not be removed by not logged in user', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    await api.delete(`/api/articles/${savedArticle.body.id}`).expect(401)
+  })
+
+  test('updated article title should be updated and content unchanged', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    const updatedArticleTitle = "updated title 1234"
+    const updatedArticleData = {
+      id: savedArticle.body.id,
+      title: updatedArticleTitle
     }
 
-    await api.post('/api/articles').send(newArticle).expect(401)
+    await api.put('/api/articles').set(header).send(updatedArticleData).expect(200)
+
+    const updatedArticle = await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
+
+    expect(updatedArticle.body.title).toBe(updatedArticleTitle)
+    expect(updatedArticle.body.content).toBe(newArticle.content)
+
+  })
+
+  test('article should not be updated by not logged in user', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    const updatedArticleTitle = "updated title 1234"
+    const updatedArticleData = {
+      id: savedArticle.body.id,
+      title: updatedArticleTitle
+    }
+
+    await api.put('/api/articles').send(updatedArticleData).expect(401)
+
   })
 })

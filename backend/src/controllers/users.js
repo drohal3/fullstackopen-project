@@ -22,6 +22,23 @@ usersRouter.get("/", async (request, response, next) => {
   }
 });
 
+usersRouter.get("/:id", async (request, response, next) => {
+  // if (config.NODE_ENV !== "development") {
+  //   return response.status(404).send({ error: "unknown endpoint" });
+  // }
+
+  try {
+    const user = await User.findById(request.params.id)
+    if (!user) {
+      return response.status(404).json({ error: "user not found" });
+    }
+
+    return response.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 usersRouter.post("/", async (request, response, next) => {
   const { email, firstName, lastName, gender, password } = request.body;
 

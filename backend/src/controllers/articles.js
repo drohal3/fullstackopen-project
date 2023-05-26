@@ -76,7 +76,7 @@ articlesRouter.post('/', async (request, response, next) => {
 
 articlesRouter.put('/', async (request, response, next) => {
   try {
-    validateArticle(request.body)
+    // validateArticle(request.body)
   } catch (e) {
     return response.status(400).json({ error: e.message });
   }
@@ -118,6 +118,7 @@ articlesRouter.delete("/:id", async (request, response, next) => {
     return response.status(204).end();
 
   } catch (e) {
+
     next(e);
   }
 });
