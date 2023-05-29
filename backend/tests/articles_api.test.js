@@ -58,7 +58,7 @@ describe('article api', () => {
     console.log("header ....",header)
   })
 
-  test('return status 401 if token not provided', async () => {
+  test('not given token', async () => {
     await api.post('/api/articles').send(newArticle).expect(401)
   })
 
@@ -69,7 +69,7 @@ describe('article api', () => {
     expect(savedArticle.body.id).toBe(retArticle.body.id)
   })
 
-  test('Removed article should be removed', async () => {
+  test('delete article', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     const veryLikelyInvalidID = "6470aedff2a04acc4ed8dfc8"
     await api.delete(`/api/articles/${veryLikelyInvalidID}`).set(header).expect(204)
@@ -80,7 +80,7 @@ describe('article api', () => {
     // const author = await api.get(`/api/users/${savedArticle.body.author}`).expect(200)
   })
 
-  test('article should not be removed by not logged in user', async () => {
+  test('remove article with not given token', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     await api.delete(`/api/articles/${savedArticle.body.id}`).expect(401)
   })
@@ -102,7 +102,19 @@ describe('article api', () => {
 
   })
 
-  test('article should not be updated by not logged in user', async () => {
+  test('update article', async () => {
+    const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    const updatedArticleTitle = "updated title 1234"
+    const updatedArticleData = {
+      id: savedArticle.body.id,
+      title: updatedArticleTitle
+    }
+
+    await api.put('/api/articles').set(header).send(updatedArticleData).expect(200)
+
+  })
+
+  test('update article with not given token', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     const updatedArticleTitle = "updated title 1234"
     const updatedArticleData = {

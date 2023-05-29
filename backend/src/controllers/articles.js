@@ -75,6 +75,13 @@ articlesRouter.post('/', async (request, response, next) => {
 });
 
 articlesRouter.put('/', async (request, response, next) => {
+
+  const user = request.user;
+
+  if (!user) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
+
   try {
     // validateArticle(request.body)
   } catch (e) {
@@ -82,7 +89,12 @@ articlesRouter.put('/', async (request, response, next) => {
   }
 
   try {
-    const article = await Article.findById(request.params.id);
+    const article = await Article.findById(request.body.id);
+
+    if (article.author.toString() !== user.id) {
+      return response.status(401).json({ error: "token missing or invalid" });
+    }
+
     // TODO: validate user
     const docs = await Article.updateOne({_id:request.body.id}, request.body)
     response.send(docs);
