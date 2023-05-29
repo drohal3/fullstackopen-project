@@ -3,11 +3,11 @@ name: backend pipeline
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, reopened]
     branches:
-      - master
+      - main
 
 jobs:
   simple_deployment_pipeline:
