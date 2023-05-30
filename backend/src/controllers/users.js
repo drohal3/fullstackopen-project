@@ -3,6 +3,7 @@ const config = require('../utils/config')
 const usersRouter = require("express").Router();
 const User = require("../mongo/models/user");
 
+// TODO: exclude password hash from API responses
 const getPasswordHash = async (password) => {
   const salt = 10;
 
@@ -91,6 +92,7 @@ usersRouter.post('/change-password', async (request, response, next) => {
 
 usersRouter.delete("/:id", async (request, response, next) => {
   try {
+    // TODO: verify user
     await User.findByIdAndDelete(request.params.id);
     response.status(204).end();
   } catch (error) {

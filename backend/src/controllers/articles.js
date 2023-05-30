@@ -65,7 +65,6 @@ articlesRouter.post('/', async (request, response, next) => {
     const article = new Article(articleData);
     const newArticle = await article.save();
     const userToUpdate = await User.findById(user.id);
-    console.log("userToUpdate", userToUpdate)
     userToUpdate.articles.concat(newArticle._id) // TODO: does this work?
     await userToUpdate.save();
     response.status(201).json(newArticle);

@@ -32,7 +32,7 @@ afterAll(() => {
 // remove article - should be removed also from user
 // add article - should be added also to the user
 
-describe('article api', () => {
+describe('articles api', () => {
   let header
   beforeEach(async () => {
     console.log("beforeEach")
@@ -69,7 +69,7 @@ describe('article api', () => {
     expect(savedArticle.body.id).toBe(retArticle.body.id)
   })
 
-  test('delete article', async () => {
+  test('remove article', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     const veryLikelyInvalidID = "6470aedff2a04acc4ed8dfc8"
     await api.delete(`/api/articles/${veryLikelyInvalidID}`).set(header).expect(204)
@@ -80,12 +80,12 @@ describe('article api', () => {
     // const author = await api.get(`/api/users/${savedArticle.body.author}`).expect(200)
   })
 
-  test('remove article with not given token', async () => {
+  test('remove article without giving a token', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     await api.delete(`/api/articles/${savedArticle.body.id}`).expect(401)
   })
 
-  test('updated article title should be updated and content unchanged', async () => {
+  test('update article', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     const updatedArticleTitle = "updated title 1234"
     const updatedArticleData = {
@@ -114,7 +114,7 @@ describe('article api', () => {
 
   })
 
-  test('update article with not given token', async () => {
+  test('update article without giving a token', async () => {
     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
     const updatedArticleTitle = "updated title 1234"
     const updatedArticleData = {
@@ -123,6 +123,5 @@ describe('article api', () => {
     }
 
     await api.put('/api/articles').send(updatedArticleData).expect(401)
-
   })
 })
