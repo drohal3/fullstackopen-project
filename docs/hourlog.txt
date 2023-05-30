@@ -21,3 +21,4 @@
                 https://github.com/StephenGrider/docker-react/blob/master/docker-compose.yml
 2023/05/23 - 3h db for test
                 https://medium.com/weekly-webtips/express-js-testing-mocking-mongodb-46c3797a201
+2023/05/29 - xh investigating deployment, repo structure and improving articles_api and users_api tests
