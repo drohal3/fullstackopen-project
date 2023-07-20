@@ -1,5 +1,7 @@
-const mongoose = require('mongoose')
 const supertest = require('supertest')
+
+const db = require('./utils/db')
+
 const app = require('../src/app')
 const api = supertest(app)
 
@@ -11,9 +13,10 @@ const newUserData = {
   "password": "Beautiful passw0rd 123"
 }
 
-afterAll(() => {
-  mongoose.connection.close()
-})
+// Setup connection to the database
+beforeAll(async () => await db.connect());
+beforeEach(async () => await db.clear());
+afterAll(async () => await db.close());
 
 describe('users api', () => {
   test('create user', async () => {

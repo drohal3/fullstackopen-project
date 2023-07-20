@@ -48,7 +48,11 @@
     "newPassword" "test1"
 }
 ```
+TODO:
 
+no need for userID - we get the user from  auth token </br>
+current_password </br>
+new_password
 ...
 
 

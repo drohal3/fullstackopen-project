@@ -1,10 +1,24 @@
 // inspired by my exercise solution:
 // https://github.com/drohal3/fullstackopen-part4/blob/main/bloglist-backend/tests/bloglist_api.test.js
-
-const mongoose = require('mongoose')
 const supertest = require('supertest')
+
+const db = require('./utils/db')
+
 const app = require('../src/app')
 const api = supertest(app)
+
+const newUserData = {
+  "email": "just.testing@invalid.test",
+  "firstName": "test",
+  "lastName": "test",
+  "gender": "male",
+  "password": "Beautiful passw0rd 123"
+}
+
+// Setup connection to the database
+beforeAll(async () => await db.connect());
+beforeEach(async () => await db.clear());
+afterAll(async () => await db.close());
 
 const User = require('../src/mongo/models/user')
 const Article = require('../src/mongo/models/article')
@@ -24,10 +38,6 @@ const newArticle = {
   "content": "test content test content test content test content test content test content test content test content " +
     "test content test content test content test content test content test content test content test content test content "
 }
-
-afterAll(() => {
-  mongoose.connection.close()
-})
 
 // remove article - should be removed also from user
 // add article - should be added also to the user
