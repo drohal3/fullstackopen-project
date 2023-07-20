@@ -10,11 +10,6 @@ const getPasswordHash = async (password) => {
   return await bcrypt.hash(password, salt)
 }
 
-const sanitizeUser = (user) => {
-  const {passwordHash, ...sanitizedUser} = user
-  return sanitizedUser
-}
-
 usersRouter.get("/", async (request, response, next) => {
   // if (config.NODE_ENV !== "development") {
   //   return response.status(404).send({ error: "unknown endpoint" });

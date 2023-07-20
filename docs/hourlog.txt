@@ -22,3 +22,7 @@
 2023/05/23 - 3h db for test
                 https://medium.com/weekly-webtips/express-js-testing-mocking-mongodb-46c3797a201
 2023/05/29 - xh investigating deployment, repo structure and improving articles_api and users_api tests
+2023/07/20 - 6h removed sanitized user (removed passwordHash from response)
+                searching for practices
+                implemented and tested database mocking for testing and github actions
+                created user API collection for Posman
