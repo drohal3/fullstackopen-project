@@ -92,7 +92,12 @@ usersRouter.post('/change-password', async (request, response, next) => {
 
 usersRouter.delete("/:id", async (request, response, next) => {
   try {
-    // TODO: verify user
+    const user = await request.user
+    if (!user || user.id !== request.params.id) {
+      return response.status(401).json({
+        error: "Unauthorized"
+      });
+    }
     await User.findByIdAndDelete(request.params.id);
     response.status(204).end();
   } catch (error) {
