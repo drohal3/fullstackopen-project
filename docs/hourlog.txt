@@ -26,3 +26,5 @@
                 searching for practices
                 implemented and tested database mocking for testing and github actions
                 created user API collection for Posman
+                corrected user api endpoints
+                corrected github pipeline for backend
