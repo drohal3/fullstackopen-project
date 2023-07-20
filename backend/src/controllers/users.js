@@ -55,7 +55,7 @@ usersRouter.post("/", async (request, response, next) => {
     const user = new User({ email, firstName, lastName, gender, passwordHash });
     const newUser = await user.save();
 
-    response.status(201).json(sanitizeUser(newUser.toObject())); // TODO: should remove passwordHash?
+    response.status(201).json(newUser);
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate username
@@ -67,15 +67,15 @@ usersRouter.post("/", async (request, response, next) => {
 });
 
 usersRouter.post('/change-password', async (request, response, next) => {
-  const { userId, password, newPassword } = request.body;
+  const { currentPassword, newPassword } = request.body;
 
-  const user = await User.findById(userId)
+  const user = request.user
 
   if (!user) {
     return response.status(401).json({ error: "Unauthorized" });
   }
 
-  const passwordCorrect = await bcrypt.compare(password, user.passwordHash);
+  const passwordCorrect = await bcrypt.compare(currentPassword, user.passwordHash);
 
 
   if (!passwordCorrect) {
