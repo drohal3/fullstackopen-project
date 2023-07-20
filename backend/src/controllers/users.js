@@ -3,7 +3,6 @@ const config = require('../utils/config')
 const usersRouter = require("express").Router();
 const User = require("../mongo/models/user");
 
-// TODO: exclude password hash from API responses
 const getPasswordHash = async (password) => {
   const salt = 10;
 
@@ -11,10 +10,6 @@ const getPasswordHash = async (password) => {
 }
 
 usersRouter.get("/", async (request, response, next) => {
-  // if (config.NODE_ENV !== "development") {
-  //   return response.status(404).send({ error: "unknown endpoint" });
-  // }
-
   try {
     const users = await User.find({});
     response.json(users);
@@ -24,10 +19,6 @@ usersRouter.get("/", async (request, response, next) => {
 });
 
 usersRouter.get("/:id", async (request, response, next) => {
-  // if (config.NODE_ENV !== "development") {
-  //   return response.status(404).send({ error: "unknown endpoint" });
-  // }
-
   try {
     const user = await User.findById(request.params.id)
     if (!user) {
