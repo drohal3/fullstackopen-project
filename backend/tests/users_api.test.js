@@ -1,9 +1,12 @@
-const supertest = require('supertest')
+const supertest = require('supertest');
+const db = require('./utils/db');
+const app = require('../src/app');
 
-const db = require('./utils/db')
+const api = supertest(app);
 
-const app = require('../src/app')
-const api = supertest(app)
+beforeAll(async () => await db.connect());
+beforeEach(async () => await db.clear());
+afterAll(async () => await db.close());
 
 const newUserData = {
   "email": "just.testing@invalid.test",
@@ -12,11 +15,6 @@ const newUserData = {
   "gender": "male",
   "password": "Beautiful passw0rd 123"
 }
-
-// Setup connection to the database
-beforeAll(async () => await db.connect());
-beforeEach(async () => await db.clear());
-afterAll(async () => await db.close());
 
 describe('users api', () => {
   test('create user', async () => {

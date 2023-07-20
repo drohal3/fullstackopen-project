@@ -10,6 +10,11 @@ const getPasswordHash = async (password) => {
   return await bcrypt.hash(password, salt)
 }
 
+const sanitizeUser = (user) => {
+  const {passwordHash, ...sanitizedUser} = user
+  return sanitizedUser
+}
+
 usersRouter.get("/", async (request, response, next) => {
   // if (config.NODE_ENV !== "development") {
   //   return response.status(404).send({ error: "unknown endpoint" });
@@ -55,7 +60,7 @@ usersRouter.post("/", async (request, response, next) => {
     const user = new User({ email, firstName, lastName, gender, passwordHash });
     const newUser = await user.save();
 
-    response.status(201).json(newUser); // TODO: should remove passwordHash?
+    response.status(201).json(sanitizeUser(newUser.toObject())); // TODO: should remove passwordHash?
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate username

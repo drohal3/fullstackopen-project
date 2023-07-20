@@ -20,7 +20,6 @@ app.use(middleware.userExtractor);
 app.use(middleware.requestLogger);
 
 
-
 if (appConfig.NODE_ENV !== "test") {
   const { connectDB } = require("./mongo/database")
   connectDB()

@@ -1,11 +1,14 @@
 // inspired by my exercise solution:
 // https://github.com/drohal3/fullstackopen-part4/blob/main/bloglist-backend/tests/bloglist_api.test.js
-const supertest = require('supertest')
+const supertest = require('supertest');
+const db = require('./utils/db');
+const app = require('../src/app');
 
-const db = require('./utils/db')
+const api = supertest(app);
 
-const app = require('../src/app')
-const api = supertest(app)
+beforeAll(async () => await db.connect());
+beforeEach(async () => await db.clear());
+afterAll(async () => await db.close());
 
 const newUserData = {
   "email": "just.testing@invalid.test",
@@ -14,11 +17,6 @@ const newUserData = {
   "gender": "male",
   "password": "Beautiful passw0rd 123"
 }
-
-// Setup connection to the database
-beforeAll(async () => await db.connect());
-beforeEach(async () => await db.clear());
-afterAll(async () => await db.close());
 
 const User = require('../src/mongo/models/user')
 const Article = require('../src/mongo/models/article')
@@ -45,7 +43,6 @@ const newArticle = {
 describe('articles api', () => {
   let header
   beforeEach(async () => {
-    console.log("beforeEach")
     const userData = {
       email: "test@test.test",
       firstName: "test",
@@ -64,8 +61,6 @@ describe('articles api', () => {
     header = {
       'Authorization': `bearer ${login.body.token}`
     }
-
-    console.log("header ....",header)
   })
 
   test('not given token', async () => {
