@@ -11,7 +11,8 @@ on:
     types: [opened, reopened]
     branches:
       - main
-
+env:
+  SECRET: 12345
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
