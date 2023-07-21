@@ -28,4 +28,5 @@
                 corrected user api endpoints
                 corrected github pipeline for backend
 2023/07/21 - 4h user API tests and related fixes
-                fixed GitHub pipeline (added SECRET env variable)
+                fixed GitHub pipeline (added SECRET env variable) - got green!
+                started Article API refactoring, creating Postman collection and redoing tests

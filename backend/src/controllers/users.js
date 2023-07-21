@@ -48,7 +48,7 @@ usersRouter.post("/", async (request, response, next) => {
     const user = new User({ email, firstName, lastName, gender, passwordHash });
     const newUser = await user.save();
 
-    response.status(201).json(newUser);
+    response.status(201).json(newUser); // TODO: how about returning ID only?
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate username

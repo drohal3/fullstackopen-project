@@ -23,6 +23,7 @@ const validateArticle = (article) => {
 }
 
 articlesRouter.get("/", async (request, response, next) => {
+  // TODO:
   try {
     const articles = await Article.find({}).populate("author", populateAuthor);
 
