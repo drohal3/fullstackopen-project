@@ -27,4 +27,5 @@
                 created user API collection for Posman
                 corrected user api endpoints
                 corrected github pipeline for backend
-2023/07/21 - 4h ...
+2023/07/21 - 4h user API tests and related fixes
+                ...
