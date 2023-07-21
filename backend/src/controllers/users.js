@@ -84,6 +84,7 @@ usersRouter.post('/change-password', async (request, response, next) => {
   //   TODO: log out user after changing password / invalidate token - blacklist?
 })
 
+
 usersRouter.delete("/:id", async (request, response, next) => {
   try {
     const user = await request.user
