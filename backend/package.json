@@ -20,7 +20,8 @@
   "scripts": {
     "start": "react-scripts start",
     "dev": "cross-env NODE_ENV=development nodemon src/index",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+    "clear_jest": "jest --clearCache"
   },
   "eslintConfig": {
     "extends": [

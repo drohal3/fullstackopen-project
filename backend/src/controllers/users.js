@@ -10,6 +10,8 @@ const getPasswordHash = async (password) => {
 }
 
 usersRouter.get("/", async (request, response, next) => {
+  // TODO: only admins should be allowed to browse users
+  response.status(401).json({ error: "Unauthorized" })
   try {
     const users = await User.find({});
     response.json(users);
@@ -76,15 +78,17 @@ usersRouter.post('/change-password', async (request, response, next) => {
   }
 
   user.passwordHash = await getPasswordHash(newPassword)
-  user.save()
+  await user.save()
 
   return response.status(204).end()
+  //   TODO: log out user after changing password / invalidate token - blacklist?
 })
 
 usersRouter.delete("/:id", async (request, response, next) => {
   try {
     const user = await request.user
-    if (!user || user.id !== request.params.id) {
+    const passwordCorrect = user && await bcrypt.compare(request.body.password, user.passwordHash);
+    if (!user || !passwordCorrect || user.id !== request.params.id) {
       return response.status(401).json({
         error: "Unauthorized"
       });

@@ -1,4 +1,3 @@
-
 2023/03/25 - 2h preparation
 2023/03/27 - 7.5h setting up frontend/backend app, backend for login, documentation, setting up MongoDB in Docker
 2023/03/28 - 6h material ui
@@ -28,3 +27,4 @@
                 created user API collection for Posman
                 corrected user api endpoints
                 corrected github pipeline for backend
+2023/07/21 - 4h ...
