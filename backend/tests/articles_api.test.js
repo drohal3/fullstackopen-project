@@ -94,6 +94,14 @@ describe('Article API', () => {
     })
   })
 
+  describe('not logged in user', () => {
+    describe('POST /api/articles', () => {
+      test('should not create an article', async () => {
+        await api.post('/api/articles').send(newArticle).expect(401)
+      })
+    })
+  })
+
 })
 
 //   let header
