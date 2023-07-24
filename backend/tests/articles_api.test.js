@@ -67,10 +67,21 @@ describe('Article API', () => {
 
     describe('POST /api/articles', () => {
       test('should create an article', () => {
-        api.post('/api,articles').set(header).send(newArticle).expect(201)
+        api.post('/api/articles').set(header).send(newArticle).expect(201)
       })
     })
 
+    describe('GET /api/articles/:id', () => {
+      test('should return an article', async () => {
+        const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
+        const newArticleId = newArticleResponse.body.id
+        console.log(newArticleId)
+        const article = await api.get(`/api/articles/${newArticleId}`).expect(200)
+        const articleId = article.body.id
+
+        expect(articleId).toEqual(newArticleId)
+      })
+    })
 
   })
 
