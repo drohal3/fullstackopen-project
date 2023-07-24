@@ -1,6 +1,6 @@
-const mongoose= require("mongoose");
+const mongoose = require('mongoose')
 
-const { connectDB } = require("../database")
+// const { connectDB } = require('../database')
 
 // connectDB()
 
@@ -27,18 +27,18 @@ const userSchema = new mongoose.Schema({
   articles: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Article",
-    },
-  ],
-});
+      ref: 'Article'
+    }
+  ]
+})
 
-userSchema.set("toJSON", {
+userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject.passwordHash;
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject.passwordHash
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema)

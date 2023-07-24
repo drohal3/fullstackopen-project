@@ -1,42 +1,40 @@
 // inspired by my exercise solution:
 // https://github.com/drohal3/fullstackopen-part4/blob/main/bloglist-backend/tests/bloglist_api.test.js
-const supertest = require('supertest');
-const db = require('./utils/db');
-const app = require('../src/app');
+const supertest = require('supertest')
+const db = require('./utils/db')
+const app = require('../src/app')
 
-const api = supertest(app);
+const api = supertest(app)
 
-beforeAll(async () => await db.connect());
-beforeEach(async () => await db.clear());
-afterAll(async () => await db.close());
+beforeAll(async () => await db.connect())
+beforeEach(async () => await db.clear())
+afterAll(async () => await db.close())
 
 const newUserData = {
-  "email": "just.testing@invalid.test",
-  "firstName": "test",
-  "lastName": "test",
-  "gender": "male",
-  "password": "Beautiful passw0rd 123"
+  email: 'just.testing@invalid.test',
+  firstName: 'test',
+  lastName: 'test',
+  gender: 'male',
+  password: 'Beautiful passw0rd 123'
 }
 
 // TODO: ???
 // const User = require('../src/mongo/models/user')
 // const Article = require('../src/mongo/models/article')
 
-
-
 const newArticle = {
-  "title": "test article 1",
-  "abstract": "test abstract, test abstract, test abstract, test abstract, test abstract," +
-    "test abstract, test abstract, test abstract, test abstract, test abstract, ",
-  "content": "test content test content test content test content test content test content test content test content " +
-    "test content test content test content test content test content test content test content test content test content "
+  title: 'test article 1',
+  abstract: 'test abstract, test abstract, test abstract, test abstract, test abstract,' +
+    'test abstract, test abstract, test abstract, test abstract, test abstract, ',
+  content: 'test content test content test content test content test content test content test content test content ' +
+    'test content test content test content test content test content test content test content test content test content '
 }
 
 const userData = {
-  email: "test@test.test",
-  firstName: "test",
-  lastName: "test",
-  password: "test123"
+  email: 'test@test.test',
+  firstName: 'test',
+  lastName: 'test',
+  password: 'test123'
 }
 
 // remove article - should be removed also from user
@@ -53,10 +51,10 @@ describe('Article API', () => {
 
     const login = await api
       .post('/api/login')
-      .send({email: userData.email, password: userData.password})
+      .send({ email: userData.email, password: userData.password })
 
     header = {
-      'Authorization': `bearer ${login.body.token}`
+      Authorization: `bearer ${login.body.token}`
     }
   })
   describe('POST /api/articles', () => {
@@ -107,7 +105,7 @@ describe('Article API', () => {
       const articleId = newArticleResponse.body.id
 
       const user2Data = {
-        ...userData, email: "test2@test.test"
+        ...userData, email: 'test2@test.test'
       }
       const user = await api
         .post('/api/users')
@@ -117,10 +115,10 @@ describe('Article API', () => {
 
       const login = await api
         .post('/api/login')
-        .send({email: user2Data.email, password: user2Data.password})
+        .send({ email: user2Data.email, password: user2Data.password })
 
       const header2 = {
-        'Authorization': `bearer ${login.body.token}`
+        Authorization: `bearer ${login.body.token}`
       }
 
       await api.delete(`/api/articles/${articleId}`).set(header2).expect(401)

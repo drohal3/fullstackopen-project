@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const { connectDB } = require("../database")
+// const { connectDB } = require('../database')
 
 // connectDB()
 
@@ -24,17 +24,19 @@ const articleSchema = new mongoose.Schema({
     minLength: 30,
     required: true
   }
-}, { timestamps: {
+}, {
+  timestamps: {
     createdAt: 'created_at', // Use `created_at` to store the created date
     updatedAt: 'updated_at' // and `updated_at` to store the last updated date
-  } });
+  }
+})
 
-articleSchema.set("toJSON", {
+articleSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
 
-module.exports = mongoose.model("Article", articleSchema);
+module.exports = mongoose.model('Article', articleSchema)
