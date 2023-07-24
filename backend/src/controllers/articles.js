@@ -23,7 +23,7 @@ const validateArticle = (article) => {
 }
 
 articlesRouter.get('/', async (request, response, next) => {
-  // TODO: default limit for number of results / filter/ pagination
+  // TODO: default limit for number of results / filter/ pagination.
   try {
     const articles = await Article.find({}).populate('author', populateAuthor)
 
