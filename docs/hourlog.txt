@@ -30,3 +30,4 @@
 2023/07/21 - 4h user API tests and related fixes
                 fixed GitHub pipeline (added SECRET env variable) - got green!
                 started Article API refactoring, creating Postman collection and redoing tests
+2023/07/24 - xh article api and article api tests

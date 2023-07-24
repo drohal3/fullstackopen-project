@@ -66,8 +66,18 @@ describe('Article API', () => {
     })
 
     describe('POST /api/articles', () => {
-      test('should create an article', () => {
-        api.post('/api/articles').set(header).send(newArticle).expect(201)
+      test('should create an article', async () => {
+        await api.post('/api/articles').set(header).send(newArticle).expect(201)
+      })
+    })
+
+    describe('GET /api/articles', () => {
+      test('should return articles', async () => {
+        const articles = await api.get('/api/articles').expect(200)
+        expect(articles.body).toHaveLength(0)
+        await api.post('/api/articles').set(header).send(newArticle)
+        const newArticles = await api.get('/api/articles').expect(200)
+        expect(newArticles.body).toHaveLength(1)
       })
     })
 
@@ -82,7 +92,6 @@ describe('Article API', () => {
         expect(articleId).toEqual(newArticleId)
       })
     })
-
   })
 
 })
