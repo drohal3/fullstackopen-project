@@ -21,13 +21,7 @@ const newUserData = {
 const User = require('../src/mongo/models/user')
 const Article = require('../src/mongo/models/article')
 
-const initialArticles= [{
-  "title": "initial article 1",
-  "abstract": "test abstract, test abstract, test abstract, test abstract, test abstract," +
-    "test abstract, test abstract, test abstract, test abstract, test abstract, ",
-  "content": "test content test content test content test content test content test content test content test content " +
-    "test content test content test content test content test content test content test content test content test content "
-}]
+
 
 const newArticle = {
   "title": "test article 1",
@@ -37,159 +31,98 @@ const newArticle = {
     "test content test content test content test content test content test content test content test content test content "
 }
 
+const userData = {
+  email: "test@test.test",
+  firstName: "test",
+  lastName: "test",
+  password: "test123"
+}
+
 // remove article - should be removed also from user
 // add article - should be added also to the user
 
 describe('Article API', () => {
-  describe('logged in user', () => {
-    let header
-    beforeEach(async () => {
-      const userData = {
-        email: "test@test.test",
-        firstName: "test",
-        lastName: "test",
-        password: "test123"
+  let header
+  beforeEach(async () => {
+    const user = await api
+      .post('/api/users')
+      .send(userData)
+
+    userData.id = user.body.id
+
+    const login = await api
+      .post('/api/login')
+      .send({email: userData.email, password: userData.password})
+
+    header = {
+      'Authorization': `bearer ${login.body.token}`
+    }
+  })
+  describe('POST /api/articles', () => {
+    test('should create an article', async () => {
+      await api.post('/api/articles').set(header).send(newArticle).expect(201)
+    })
+    test('unauthorized user should not create an article', async () => {
+      await api.post('/api/articles').send(newArticle).expect(401)
+    })
+  })
+
+  describe('GET /api/articles', () => {
+    test('should return articles', async () => {
+      const articles = await api.get('/api/articles').expect(200)
+      expect(articles.body).toHaveLength(0)
+      await api.post('/api/articles').set(header).send(newArticle)
+      const newArticles = await api.get('/api/articles').expect(200)
+      expect(newArticles.body).toHaveLength(1)
+    })
+  })
+
+  describe('GET /api/articles/:id', () => {
+    test('should return an article', async () => {
+      const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
+      const newArticleId = newArticleResponse.body.id
+      console.log(newArticleId)
+      const article = await api.get(`/api/articles/${newArticleId}`).expect(200)
+      const articleId = article.body.id
+
+      expect(articleId).toEqual(newArticleId)
+    })
+  })
+
+  describe('DELETE /api/articles/:id', () => {
+    test('should delete article', async () => {
+      const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
+      const articleId = newArticleResponse.body.id
+      await api.delete(`/api/articles/${articleId}`).set(header).expect(204)
+      await api.get(`/api/articles/${articleId}`).expect(404)
+    })
+    test('unauthorized user should not delete article', async () => {
+      const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
+      const articleId = newArticleResponse.body.id
+      await api.delete(`/api/articles/${articleId}`).expect(401)
+    })
+    test('not owner should not delete article', async () => {
+      const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
+      const articleId = newArticleResponse.body.id
+
+      const user2Data = {
+        ...userData, email: "test2@test.test"
       }
       const user = await api
         .post('/api/users')
-        .send(userData)
+        .send(user2Data)
 
-      userData.id = user.body.id
+      user2Data.id = user.body.id
 
       const login = await api
         .post('/api/login')
-        .send({email: userData.email, password: userData.password})
+        .send({email: user2Data.email, password: user2Data.password})
 
-      header = {
+      const header2 = {
         'Authorization': `bearer ${login.body.token}`
       }
-    })
 
-    describe('POST /api/articles', () => {
-      test('should create an article', async () => {
-        await api.post('/api/articles').set(header).send(newArticle).expect(201)
-      })
-    })
-
-    describe('GET /api/articles', () => {
-      test('should return articles', async () => {
-        const articles = await api.get('/api/articles').expect(200)
-        expect(articles.body).toHaveLength(0)
-        await api.post('/api/articles').set(header).send(newArticle)
-        const newArticles = await api.get('/api/articles').expect(200)
-        expect(newArticles.body).toHaveLength(1)
-      })
-    })
-
-    describe('GET /api/articles/:id', () => {
-      test('should return an article', async () => {
-        const newArticleResponse = await api.post('/api/articles').set(header).send(newArticle)
-        const newArticleId = newArticleResponse.body.id
-        console.log(newArticleId)
-        const article = await api.get(`/api/articles/${newArticleId}`).expect(200)
-        const articleId = article.body.id
-
-        expect(articleId).toEqual(newArticleId)
-      })
+      await api.delete(`/api/articles/${articleId}`).set(header2).expect(401)
     })
   })
-
-  describe('not logged in user', () => {
-    describe('POST /api/articles', () => {
-      test('should not create an article', async () => {
-        await api.post('/api/articles').send(newArticle).expect(401)
-      })
-    })
-  })
-
 })
-
-//   let header
-//   beforeEach(async () => {
-//     const userData = {
-//       email: "test@test.test",
-//       firstName: "test",
-//       lastName: "test",
-//       gender: "male",
-//       password: "test123"
-//     }
-//     await api
-//       .post('/api/users')
-//       .send(userData)
-//
-//     const login = await api
-//       .post('/api/login')
-//       .send({email: userData.email, password: userData.password})
-//
-//     header = {
-//       'Authorization': `bearer ${login.body.token}`
-//     }
-//   })
-//
-//   test('not given token', async () => {
-//     await api.post('/api/articles').send(newArticle).expect(401)
-//   })
-//
-//   test('return status 201 and create article when article created', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     const retArticle = await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
-//
-//     expect(savedArticle.body.id).toBe(retArticle.body.id)
-//   })
-//
-//   test('remove article', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     const veryLikelyInvalidID = "6470aedff2a04acc4ed8dfc8"
-//     await api.delete(`/api/articles/${veryLikelyInvalidID}`).set(header).expect(204)
-//     await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
-//     await api.delete(`/api/articles/${savedArticle.body.id}`).set(header).expect(204)
-//     await api.get(`/api/articles/${savedArticle.body.id}`).expect(404)
-//
-//     // const author = await api.get(`/api/users/${savedArticle.body.author}`).expect(200)
-//   })
-//
-//   test('remove article without giving a token', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     await api.delete(`/api/articles/${savedArticle.body.id}`).expect(401)
-//   })
-//
-//   test('update article', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     const updatedArticleTitle = "updated title 1234"
-//     const updatedArticleData = {
-//       id: savedArticle.body.id,
-//       title: updatedArticleTitle
-//     }
-//
-//     await api.put('/api/articles').set(header).send(updatedArticleData).expect(200)
-//
-//     const updatedArticle = await api.get(`/api/articles/${savedArticle.body.id}`).expect(200)
-//
-//     expect(updatedArticle.body.title).toBe(updatedArticleTitle)
-//     expect(updatedArticle.body.content).toBe(newArticle.content)
-//
-//   })
-//
-//   test('update article', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     const updatedArticleTitle = "updated title 1234"
-//     const updatedArticleData = {
-//       id: savedArticle.body.id,
-//       title: updatedArticleTitle
-//     }
-//
-//     await api.put('/api/articles').set(header).send(updatedArticleData).expect(200)
-//
-//   })
-//
-//   test('update article without giving a token', async () => {
-//     const savedArticle = await api.post('/api/articles').set(header).send(newArticle).expect(201)
-//     const updatedArticleTitle = "updated title 1234"
-//     const updatedArticleData = {
-//       id: savedArticle.body.id,
-//       title: updatedArticleTitle
-//     }
-//
-//     await api.put('/api/articles').send(updatedArticleData).expect(401)
-//   })
-// })
