@@ -35,3 +35,5 @@
                 reintroduction into frontend, rethinking design
 2023/07/25 - 7h MaterialUI course: https://youtube.com/playlist?list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO
                 custom hooks - useAuthData for fetching logged in user
+                base layout for the app
+                app design / try and error with MaterialUI
