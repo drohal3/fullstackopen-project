@@ -8,6 +8,7 @@ const newUserData = {
   email: 'just.testing@invalid.test',
   firstName: 'test',
   lastName: 'test',
+  nickName: 'test01',
   gender: 'male',
   password: 'Beautiful passw0rd 123'
 }
@@ -29,7 +30,8 @@ describe('User API', () => {
             email: newUserData.email,
             firstName: newUserData.firstName,
             lastName: newUserData.lastName,
-            gender: newUserData.gender
+            gender: newUserData.gender,
+            nickName: newUserData.nickName
           }
         )
       )

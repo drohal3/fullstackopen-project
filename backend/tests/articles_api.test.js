@@ -14,6 +14,7 @@ const newUserData = {
   email: 'just.testing@invalid.test',
   firstName: 'test',
   lastName: 'test',
+  nickName: 'test01',
   gender: 'male',
   password: 'Beautiful passw0rd 123'
 }
@@ -34,7 +35,8 @@ const userData = {
   email: 'test@test.test',
   firstName: 'test',
   lastName: 'test',
-  password: 'test123'
+  password: 'test123',
+  nickName: 'test01',
 }
 
 // remove article - should be removed also from user
