@@ -11,12 +11,11 @@ import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
 import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import CreateIcon from '@mui/icons-material/Create';
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 function ArticleWall({articles}) {
   // const [articles, setArticles] = useState([]);
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   // useEffect( () => {
   //   async function fetchArticles() {

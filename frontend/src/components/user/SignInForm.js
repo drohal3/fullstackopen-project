@@ -19,9 +19,10 @@ import {useDispatch, useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import loginService from '../../services/login'
-import { setUser } from "../../reducers/userReducer";
+import { setUser } from "../../reducers/loggedUserReducer";
 
 import { Link as RouterLink } from 'react-router-dom';
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 const theme = createTheme();
 
@@ -29,9 +30,7 @@ export default function SignInForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   useEffect( () => {
     if (user.token) { //redirect to home if user already logged in

@@ -19,13 +19,12 @@ import { Link as RouterLink } from 'react-router-dom';
 import coverImage from '../static/src/img/pexels-10529767.jpeg'
 import articlesService from '../services/articles'
 import Cover from "../components/layout/Cover";
+import {useAuthData} from "../hooks/useAuthHooks";
 
 
 function Home() {
   const [articles, setArticles] = useState([]);
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   useEffect( () => {
     async function fetchArticles() {

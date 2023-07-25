@@ -20,6 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 
 function ArticleActionButtons( { user, article } ) {
@@ -108,9 +109,7 @@ function View() {
     setArticle(article)
   }, [])
 
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   if (!article) {
     return (<p>loading...</p>)

@@ -24,10 +24,14 @@
 2023/07/20 - 6h removed sanitized user (removed passwordHash from response)
                 searching for practices
                 implemented and tested database mocking for testing and github actions
-                created user API collection for Posman
+                created user API collection for Postman
                 corrected user api endpoints
                 corrected github pipeline for backend
 2023/07/21 - 4h user API tests and related fixes
                 fixed GitHub pipeline (added SECRET env variable) - got green!
                 started Article API refactoring, creating Postman collection and redoing tests
-2023/07/24 - xh article api and article api tests
+2023/07/24 - 7h article api and article api tests
+                put lint into use in backend
+                reintroduction into frontend, rethinking design
+2023/07/25 - 7h MaterialUI course: https://youtube.com/playlist?list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO
+                custom hooks - useAuthData for fetching logged in user

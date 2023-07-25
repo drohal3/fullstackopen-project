@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { setUser } from "./reducers/userReducer";
+import { setUser } from "./reducers/loggedUserReducer";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -35,7 +35,8 @@ function App() {
         <Route path="logout" element={<SignOut />} />
         <Route path="*" element={<NoPage />} />
 
-        <Route path="user" element={<User />} />
+        <Route path="users/:id" element={<User />} />
+
 
         <Route path="articles" element={<ArticleList />} />
         <Route path="articles/create" element={<ArticleCreate />} />

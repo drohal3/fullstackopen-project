@@ -9,7 +9,7 @@ const initialState = {
 }
 
 const userSlice = createSlice({ // TODO: use cookies/cache instead
-  name: 'user',
+  name: 'auth',
   initialState,
   reducers: {
     set: (state, action) => { //login

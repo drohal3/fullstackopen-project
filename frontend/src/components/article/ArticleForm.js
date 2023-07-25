@@ -5,13 +5,12 @@ import articles from "../../services/articles";
 import { useSelector, useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 
 function ArticleForm() {
   const navigate = useNavigate()
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   const dispatch = useDispatch()
   const handleSubmit = async (event) => {

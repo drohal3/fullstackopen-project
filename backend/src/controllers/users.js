@@ -34,7 +34,7 @@ usersRouter.get('/:id', async (request, response, next) => {
 })
 
 usersRouter.post('/', async (request, response, next) => {
-  const { email, firstName, lastName, gender, password } = request.body
+  const { email, firstName, lastName, nickName, gender, password } = request.body
 
   if (password === undefined || password.length < 3) {
     return response
@@ -45,7 +45,7 @@ usersRouter.post('/', async (request, response, next) => {
   const passwordHash = await getPasswordHash(password)
 
   try {
-    const user = new User({ email, firstName, lastName, gender, passwordHash })
+    const user = new User({ email, firstName, lastName, nickName, gender, passwordHash })
     const newUser = await user.save()
 
     response.status(201).json(newUser) // TODO: how about returning ID only?

@@ -15,6 +15,7 @@ import {Link as RouterLink} from "react-router-dom";
 import * as React from "react";
 import userService from '../../services/users';
 import {useSelector} from "react-redux";
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 
 
@@ -22,9 +23,7 @@ const theme = createTheme();
 
 function ChangePasswordForm() {
 
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
   const handleSubmit = async (event) => {
     event.preventDefault();
 

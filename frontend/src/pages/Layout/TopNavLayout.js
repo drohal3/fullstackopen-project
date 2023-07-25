@@ -18,6 +18,7 @@ import {useNavigate} from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Alerts from "../../components/layout/alert/Alerts";
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 
 
@@ -37,9 +38,7 @@ function Copyright(props) {
 function UserDrawer() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -104,9 +103,7 @@ function UserDrawer() {
 }
 
 function TopNavLayout (props) {
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   const { logButtons = true } = props
 

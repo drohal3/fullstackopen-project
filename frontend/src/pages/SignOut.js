@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
-import { signOut } from '../reducers/userReducer'
+import { signOut } from '../reducers/loggedUserReducer'
 
 function SignOut() {
 

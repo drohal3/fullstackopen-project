@@ -1,16 +1,14 @@
 import Typography from "@mui/material/Typography";
-import {useSelector} from "react-redux";
 import {Link as RouterLink} from "react-router-dom";
 import Link from "@mui/material/Link";
 import * as React from "react";
+import {useAuthData} from "../../hooks/useAuthHooks";
 
 function ArticleListItem(props) {
   const { article } = props
   const author = article.author
 
-  const user = useSelector((state) => {
-    return state.user
-  })
+  const user = useAuthData()
 
   console.log(article)
   console.log("author", author)
