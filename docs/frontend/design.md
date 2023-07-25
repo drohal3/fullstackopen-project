@@ -7,12 +7,15 @@ Types of user:
 - volunteer
 - \* admin
 
-homepage:
+### /home:
 - feed
 
-**articles:** and article represents a letter that someone writes for the public to share their emotions
+### /articles: 
+an article represents a letter that someone writes for the public to share their emotions
 
-userpage /users/{nickName}:
+
+
+### userpage /users/{nickName}:
 - about info
 - articles/diary
 - public/private profile

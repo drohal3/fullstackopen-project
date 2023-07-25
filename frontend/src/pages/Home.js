@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 
 function Home(){
   return (
-    <AppLayout>
+    <AppLayout title="Home">
       <Typography>This is home</Typography>
     </AppLayout>
   )

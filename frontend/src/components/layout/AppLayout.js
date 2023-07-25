@@ -18,13 +18,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {useAuthData} from "../../hooks/useAuthHooks";
+import {useEffect} from "react";
 
 const drawerWidth = 240;
 
 
 
 function AppLayout(props) {
-
+  const { title } = props
+  const user = useAuthData()
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const navigate = useNavigate()
@@ -32,10 +35,8 @@ function AppLayout(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
+  const items = user.token ? (
+    <>
       <List>
         <ListItem disablePadding>
           <ListItemButton component={RouterLink} to="/">
@@ -74,6 +75,14 @@ function AppLayout(props) {
           </ListItemButton>
         </ListItem>
       </List>
+    </>
+  ) : (<></>)
+
+  const drawer = (
+    <div>
+      <Toolbar><Typography variant="h2">XYZ</Typography></Toolbar>
+      <Divider />
+      {items}
     </div>
   );
 
@@ -98,7 +107,7 @@ function AppLayout(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
