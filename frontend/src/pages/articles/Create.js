@@ -1,4 +1,4 @@
-import TopNavLayout from "../Layout/TopNavLayout";
+import TopNavLayout from "../layout/TopNavLayout";
 import ArticleForm from "../../components/article/ArticleForm";
 import Container from '@mui/material/Container';
 

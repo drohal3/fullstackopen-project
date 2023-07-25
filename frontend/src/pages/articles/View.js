@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import articles from "../../services/articles";
 import {useEffect, useState} from "react";
-import TopNavLayout from "../Layout/TopNavLayout";
+import TopNavLayout from "../layout/TopNavLayout";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import {useSelector} from "react-redux";

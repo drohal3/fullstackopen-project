@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { setUser } from "./reducers/loggedUserReducer";
 
 import Home from "./pages/Home";
+import Articles from "./pages/articles/Articles";
+
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import NoPage from "./pages/NoPage";
@@ -38,7 +40,7 @@ function App() {
         <Route path="users/:id" element={<User />} />
 
 
-        <Route path="articles" element={<ArticleList />} />
+        <Route path="articles" element={<Articles />} />
         <Route path="articles/create" element={<ArticleCreate />} />
 
         <Route path="articles/:id" element={<ArticleView />} />

@@ -10,6 +10,8 @@ Types of user:
 homepage:
 - feed
 
+**articles:** and article represents a letter that someone writes for the public to share their emotions
+
 userpage /users/{nickName}:
 - about info
 - articles/diary
