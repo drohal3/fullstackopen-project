@@ -38,7 +38,7 @@
                 base layout for the app
                 app design / try and error with MaterialUI
 2023/07/26 - xh App design considerations (home when not logged in, etc.)
-                solving problem with adding GraphQl to the project
+                solving problems with adding GraphQl to the project
 
 
 

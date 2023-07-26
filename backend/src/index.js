@@ -1,74 +1,59 @@
-// const { ApolloServer } = require('@apollo/server')
+const { ApolloServer } = require('@apollo/server')
+const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer')
+const { expressMiddleware } = require('@apollo/server/express4')
 const app = require('./app') // the actual Express application
 const http = require('http')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
-const expressServer = http.createServer(app)
+const httpServer = http.createServer(app)
 const PORT = config.PORT || 3001
 // const User = require('./mongo/models/user')
 // const Article = require('./mongo/models/article')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 
 // const jwt = require('jsonwebtoken')
 
-// TODO: expressServer.applyMiddleware({ app }) ...to pass express js expressServer to apollo expressServer
+// TODO: httpServer.applyMiddleware({ app }) ...to pass express js httpServer to apollo httpServer
 
 // TODO: move to separate files
 // fullstack open course: https://github.com/drohal3/fullstackopen-part8
-// const typeDefs = gql`
-//   type Author {
-//     nickName: String!
-//     id: ID!
-//   }
-//
-//   type Article {
-//     title: String!
-//     abstract: String
-//     content: String!
-//     author: Author!
-//     id: ID!
-//   }
-//
-//   type Query {
-//     allArticles(author_id: String): [Article!]!
-//   }
-// `
+const typeDefs = `#graphql
+  type Query {
+    hello: String
+  }
+`
 
-// const resolvers = {
-//   Query: {
-//     allArticles: async (root, args) => {
-//       let conds = []
-//       if (args.author_id) {
-//         // TODO: authorisation/validation/who can see it?
-//         // TODO: use context.currentUser
-//         conds = [...conds, {author: args.author_id}]
-//       } else {
-//         throw new UserInputError("user_id must be provided", {
-//           invalidArgs: args,
-//         })
-//       }
-//
-//       return Article.find(conds).populate('author')
-//     }
-//   }
-// }
+const resolvers = {
+  Query: {
+    hello: () => 'world'
+  }
+}
 
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers,
-//   context: async ({ req }) => {
-//     const auth = req ? req.headers.authorization : null
-//     if (auth && auth.toLowerCase().startsWith('bearer ')) {
-//       const decodedToken = jwt.verify(
-//         auth.substring(7), process.env.SECRET
-//       )
-//       const currentUser = await User.findById(decodedToken.id)
-//       return {currentUser} // {currentUser:currentUser}
-//     }
-//   }
-// })
+async function startServer () {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
+    // context: async ({ req }) => {
+    //   const auth = req ? req.headers.authorization : null
+    //   if (auth && auth.toLowerCase().startsWith('bearer ')) {
+    //     const decodedToken = jwt.verify(
+    //       auth.substring(7), process.env.SECRET
+    //     )
+    //     const currentUser = await User.findById(decodedToken.id)
+    //     return {currentUser} // {currentUser:currentUser}
+    //   }
+    // }
+  })
 
-// server.applyMiddleware({expressServer})
+  await server.start()
 
-expressServer.listen(PORT, () => {
-  logger.info(`Server running on port ${PORT}`)
-})
+  app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server))
+
+  httpServer.listen(PORT, () => {
+    logger.info(`Server running on port ${PORT}`)
+  })
+}
+
+startServer()

@@ -28,7 +28,7 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/articles', articleRouter)
 
-app.use(middleware.unknownEndpoint)
+// app.use(middleware.unknownEndpoint) // TODO: had to comment out due to graphql - resolve this problem
 app.use(middleware.errorHandler)
 
 module.exports = app
