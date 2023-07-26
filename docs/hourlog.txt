@@ -37,4 +37,10 @@
                 custom hooks - useAuthData for fetching logged in user
                 base layout for the app
                 app design / try and error with MaterialUI
-2023/07/26 - xh ...
+2023/07/26 - xh App design considerations (home when not logged in, etc.)
+                solving problem with adding GraphQl to the project
+
+
+
+TODO: pre-commit hooks
+TODO: express middleware: https://www.npmjs.com/package/@apollo/server
