@@ -9,6 +9,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LoginIcon from '@mui/icons-material/Login';
+import LockIcon from '@mui/icons-material/Lock';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -19,7 +21,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {useAuthData} from "../../hooks/useAuthHooks";
-import {useEffect} from "react";
 
 const drawerWidth = 240;
 
@@ -76,7 +77,26 @@ function AppLayout(props) {
         </ListItem>
       </List>
     </>
-  ) : (<></>)
+  ) : (<>
+    <List>
+      <ListItem disablePadding>
+        <ListItemButton component={RouterLink} to="/login">
+          <ListItemIcon>
+            <LoginIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sign In" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton component={RouterLink} to="/register">
+          <ListItemIcon>
+            <LockIcon />
+          </ListItemIcon>
+          <ListItemText primary="Sign Up" />
+        </ListItemButton>
+      </ListItem>
+    </List>
+  </>)
 
   const drawer = (
     <div>

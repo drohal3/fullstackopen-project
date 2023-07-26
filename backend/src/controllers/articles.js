@@ -33,6 +33,8 @@ articlesRouter.get('/', async (request, response, next) => {
   }
 })
 
+
+
 articlesRouter.get('/:id', async (request, response, next) => {
   try {
     const article = await Article.findById(request.params.id).populate('author', populateAuthor)
