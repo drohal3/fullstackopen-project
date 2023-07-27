@@ -30,11 +30,11 @@ const resolvers = {
       // TODO: authentication / errors
       let conditions = []
       if (args.authorId) {
-        conditions = [...conditions, {author: args.authorId}]
-        console.log("--->>>",args.authorId)
+        conditions = [...conditions, { author: args.authorId }]
+        console.log('--->>>', args.authorId)
       }
 
-      conditions = conditions.length ? {$and: conditions} : {}
+      conditions = conditions.length ? { $and: conditions } : {}
 
       return Article.find(conditions).populate('author')
     }

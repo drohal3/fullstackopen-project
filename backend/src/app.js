@@ -14,8 +14,7 @@ const loginRouter = require('./controllers/login')
 const articleRouter = require('./controllers/articles')
 const middleware = require('./utils/middleware')
 
-
-const {typeDefs, resolvers} = require('./graphql/schema')
+const { typeDefs, resolvers } = require('./graphql/schema')
 
 const app = express()
 app.use(cors())
