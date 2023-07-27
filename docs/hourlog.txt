@@ -37,8 +37,12 @@
                 custom hooks - useAuthData for fetching logged in user
                 base layout for the app
                 app design / try and error with MaterialUI
-2023/07/26 - xh App design considerations (home when not logged in, etc.)
+2023/07/26 - 7h App design considerations (home when not logged in, etc.)
                 solving problems with adding GraphQl to the project
+2023/07/27 - xh refactoring GraphQl
+                    - moving from index.js to app.js,
+                    - solving sync issues (graphQl needs to be started before middleware applied)
+                ...
 
 
 

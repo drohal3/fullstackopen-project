@@ -9,8 +9,10 @@ require('dotenv').config()
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const articleRouter = require('./controllers/articles')
-// const {config} = require("dotenv"); // TODO: Is this really needed?
 const middleware = require('./utils/middleware')
+const { ApolloServer } = require('@apollo/server')
+const bodyParser = require('body-parser')
+const { expressMiddleware } = require('@apollo/server/express4')
 
 app.use(cors())
 app.use(express.json())
@@ -28,7 +30,32 @@ app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/articles', articleRouter)
 
-// app.use(middleware.unknownEndpoint) // TODO: had to comment out due to graphql - resolve this problem
-app.use(middleware.errorHandler)
+const typeDefs = `#graphql
+  type Query {
+    hello: String
+  }
+`
+
+const resolvers = {
+  Query: {
+    hello: (root, args, context) => {
+      console.log('====>', context)
+      return 'world'
+    }
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+})
+
+server.start().then(() => {
+  app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server, {
+    context: async ({ req }) => ({ user: req.user })
+  }))
+  app.use(middleware.unknownEndpoint) // TODO: had to comment out due to graphql - resolve this problem
+  app.use(middleware.errorHandler)
+})
 
 module.exports = app
