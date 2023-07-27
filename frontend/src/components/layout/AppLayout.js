@@ -11,6 +11,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LoginIcon from '@mui/icons-material/Login';
 import LockIcon from '@mui/icons-material/Lock';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -21,6 +22,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {useAuthData} from "../../hooks/useAuthHooks";
+import {ListItemAvatar} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 240;
 
@@ -59,6 +62,17 @@ function AppLayout(props) {
       </List>
       <Divider />
       <List>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccountCircleOutlinedIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            primary={`${user.firstName} ${user.lastName}`}
+          />
+        </ListItem>
+        <Divider />
         <ListItem disablePadding>
           <ListItemButton component={RouterLink} to="/todo">
             <ListItemIcon>

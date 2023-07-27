@@ -39,7 +39,6 @@ function App() {
 
         <Route path="users/:id" element={<User />} />
 
-
         <Route path="articles" element={<Articles />} />
         <Route path="articles/create" element={<ArticleCreate />} />
 

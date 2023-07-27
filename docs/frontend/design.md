@@ -19,3 +19,4 @@ an article represents a letter that someone writes for the public to share their
 - about info
 - articles/diary
 - public/private profile
+nothing like private articles

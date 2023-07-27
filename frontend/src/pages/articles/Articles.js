@@ -27,9 +27,20 @@ function Articles() {
 
   console.log(auth)
 
-  const articles = useQuery(ALL_ARTICLES, {variables: {authorId: auth.id}})
+  const articlesResult = useQuery(ALL_ARTICLES, {variables: {authorId: auth.id}})
+
+  console.log(articlesResult)
+
+  const articles = articlesResult.loading ? [] : articlesResult.data.allArticles
 
   console.log(articles)
+
+  const articlesElements = (
+    <>
+      {articles.map((article) => (<Typography key={article.id}>{JSON.stringify(article)}</Typography>))}
+    </>
+  )
+
   return (
     <AppLayout title="Articles">
       <RouterLink to="/articles/create">Add article</RouterLink>
@@ -42,6 +53,7 @@ function Articles() {
       <Typography>
         My articles will be here
       </Typography>
+      {articlesElements}
     </AppLayout>
   )
 }
