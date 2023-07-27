@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
   nickName: {
     type: String,
     required: true,
+    unique: true,
     minLength: 5,
     maxLength: 20
   },

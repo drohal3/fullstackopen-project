@@ -2,10 +2,11 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import articles from "../../services/articles";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
 import {useAuthData} from "../../hooks/useAuthHooks";
+import Paper from "@mui/material/Paper";
 
 
 function ArticleForm() {
@@ -54,10 +55,12 @@ function ArticleForm() {
       />
       <TextField
         margin="normal"
-        required
+
         fullWidth
         id="abstract"
         label="Abstract"
+        minRows="3"
+        multiline
         name="abstract"
         autoComplete="abstract"
       />
@@ -69,7 +72,7 @@ function ArticleForm() {
         label="Content"
         name="content"
         autoComplete="content"
-        minRows="5"
+        minRows="8"
         multiline
       />
       <Button

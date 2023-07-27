@@ -29,13 +29,13 @@
     "password": "test pswd",
     "firstName": "test",
     "lastName": "test",
-    "gender": "men"
+    "nickName": "test01"
 }
 ```
 
 ...
 
-`DELETE /api/user:id`
+`DELETE /api/user/:id`
 
 ...
 
@@ -43,21 +43,20 @@
 
 ```
 {
-    "userId": 123,
-    "password": "test",
+    "currentPassword": "test",
     "newPassword" "test1"
 }
 ```
-TODO:
 
-no need for userID - we get the user from  auth token </br>
-current_password </br>
-new_password
 ...
 
 
 # Articles
-...
+
+
+GraphQl
+
+
 
 # Volunteers
 ...

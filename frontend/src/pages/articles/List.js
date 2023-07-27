@@ -1,4 +1,4 @@
-import TopNavLayout from "../Layout/TopNavLayout";
+import TopNavLayout from "../layout/TopNavLayout";
 import Container from '@mui/material/Container';
 import {useEffect, useState} from "react";
 import articlesService from "../../services/articles";

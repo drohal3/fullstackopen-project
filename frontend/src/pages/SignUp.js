@@ -1,4 +1,4 @@
-import TopNavLayout from "./Layout/TopNavLayout";
+import TopNavLayout from "./layout/TopNavLayout";
 import SignUpForm from "../components/user/SignUpForm";
 function SignUp() {
   return (

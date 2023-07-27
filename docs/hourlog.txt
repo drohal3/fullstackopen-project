@@ -35,3 +35,18 @@
                 reintroduction into frontend, rethinking design
 2023/07/25 - 7h MaterialUI course: https://youtube.com/playlist?list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO
                 custom hooks - useAuthData for fetching logged in user
+                base layout for the app
+                app design / try and error with MaterialUI
+2023/07/26 - 7h App design considerations (home when not logged in, etc.)
+                solving problems with adding GraphQl to the project
+2023/07/27 - xh refactoring GraphQl backend
+                    - moving from index.js to app.js,
+                    - solving sync issues (graphQl needs to be started before middleware applied)
+                    - added logged in user to context from request.user which was set in middleware
+                setting up GraphQl frontend and testing allArticles query
+                loading logged in user's articles, hitting problem with caching
+                starting to read about caching: https://www.apollographql.com/docs/react/caching/overview
+                TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
+
+
+TODO: pre-commit hooks
