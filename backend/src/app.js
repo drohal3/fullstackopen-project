@@ -1,6 +1,9 @@
 const express = require('express')
-const app = express()
 const cors = require('cors')
+const bodyParser = require('body-parser')
+const { expressMiddleware } = require('@apollo/server/express4')
+const { ApolloServer } = require('@apollo/server')
+
 const appConfig = require('./utils/config')
 require('dotenv').config()
 
@@ -10,10 +13,11 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const articleRouter = require('./controllers/articles')
 const middleware = require('./utils/middleware')
-const { ApolloServer } = require('@apollo/server')
-const bodyParser = require('body-parser')
-const { expressMiddleware } = require('@apollo/server/express4')
 
+
+const {typeDefs, resolvers} = require('./graphql/schema')
+
+const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(middleware.tokenExtractor)
@@ -29,21 +33,6 @@ if (appConfig.NODE_ENV !== 'test') {
 app.use('/api/login', loginRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/articles', articleRouter)
-
-const typeDefs = `#graphql
-  type Query {
-    hello: String
-  }
-`
-
-const resolvers = {
-  Query: {
-    hello: (root, args, context) => {
-      console.log('====>', context)
-      return 'world'
-    }
-  }
-}
 
 const server = new ApolloServer({
   typeDefs,
