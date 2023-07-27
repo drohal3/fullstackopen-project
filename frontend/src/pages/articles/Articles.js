@@ -1,11 +1,35 @@
 import AppLayout from "../../components/layout/AppLayout";
 import Typography from "@mui/material/Typography";
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import { gql, useQuery } from '@apollo/client'
+
 import Link from "@mui/material/Link";
+import {useState} from "react";
+import {useAuthData} from "../../hooks/useAuthHooks";
+
+const ALL_ARTICLES = gql`
+  query AllArticles($authorId: ID!) {
+    allArticles(authorId: $authorId) {
+    author {
+      nickName
+      id
+    }
+    title
+    abstract
+    content
+    id
+  }
+  }
+`
 
 function Articles() {
+  const auth = useAuthData()
 
+  console.log(auth)
 
+  const articles = useQuery(ALL_ARTICLES, {variables: {authorId: auth.id}})
+
+  console.log(articles)
   return (
     <AppLayout title="Articles">
       <RouterLink to="/articles/create">Add article</RouterLink>
