@@ -50,11 +50,12 @@ const server = new ApolloServer({
   resolvers
 })
 
+// TODO: ApolloServerPluginDrainHttpServer - needed?
 server.start().then(() => {
   app.use('/graphql', cors(), bodyParser.json(), expressMiddleware(server, {
     context: async ({ req }) => ({ user: req.user })
   }))
-  app.use(middleware.unknownEndpoint) // TODO: had to comment out due to graphql - resolve this problem
+  app.use(middleware.unknownEndpoint)
   app.use(middleware.errorHandler)
 })
 
