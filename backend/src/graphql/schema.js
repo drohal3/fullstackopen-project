@@ -1,7 +1,7 @@
 const Article = require('../mongo/models/article')
 const User = require('../mongo/models/user')
 const { GraphQLError } = require('graphql')
-const { ApolloServerErrorCode } = require('@apollo/server/errors');
+const { ApolloServerErrorCode } = require('@apollo/server/errors')
 
 const typeDefs = `#graphql
   type User {
@@ -56,38 +56,38 @@ const resolvers = {
       if (!context.user) {
         throw new GraphQLError('You are not authorized to perform this action.', {
           extensions: {
-            code: 'FORBIDDEN',
-          },
-        });
+            code: 'FORBIDDEN'
+          }
+        })
       }
 
       console.log(context)
-      let author = await User.findById(context.user._id)
-      
+      const author = await User.findById(context.user._id)
+
       if (!author) {
         throw new GraphQLError('You are not authorized to perform this action.', {
           extensions: {
-            code: 'FORBIDDEN',
-          },
-        });
+            code: 'FORBIDDEN'
+          }
+        })
       }
-      
+
       const newArticle = new Article({
         title: args.title,
         abstract: args.abstract,
         content: args.content,
         author: author.id
       })
-      
+
       let article = null
-      
+
       try {
         article = await newArticle.save()
       } catch (e) {
-        throw new GraphQLError( e.message, { // TODO: is this correct way to thro error?
+        throw new GraphQLError(e.message, { // TODO: is this correct way to thro error?
           // TODO: https://www.apollographql.com/docs/apollo-server/data/errors/#custom-errors
           code: ApolloServerErrorCode.BAD_USER_INPUT
-        } )
+        })
       }
 
       return article.populate('author')
