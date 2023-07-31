@@ -48,6 +48,6 @@
                 starting to read about caching: https://www.apollographql.com/docs/react/caching/overview
                 putting Apollo client devtools into use
                 TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
-2023/07/31 - xh
+2023/07/31 - xh dealing with Apollo cache
 
 TODO: pre-commit hooks
