@@ -31,7 +31,7 @@ function Articles() {
 
   console.log(articlesResult)
 
-  const articles = articlesResult.loading ? [] : articlesResult.data.allArticles
+  const articles = !articlesResult || articlesResult.loading || !articlesResult.data ? [] : articlesResult.data.allArticles
 
   console.log(articles)
 

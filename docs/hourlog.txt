@@ -46,7 +46,8 @@
                 setting up GraphQl frontend and testing allArticles query
                 loading logged in user's articles, hitting problem with caching
                 starting to read about caching: https://www.apollographql.com/docs/react/caching/overview
+                putting Apollo client devtools into use
                 TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
-
+2023/07/31 - xh
 
 TODO: pre-commit hooks
