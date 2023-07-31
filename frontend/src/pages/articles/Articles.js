@@ -44,15 +44,6 @@ function Articles() {
   return (
     <AppLayout title="Articles">
       <RouterLink to="/articles/create">Add article</RouterLink>
-      <Typography>
-        Tabs - My articles, Public articles?
-      </Typography>
-      <Typography>
-        Add article option will be here
-      </Typography>
-      <Typography>
-        My articles will be here
-      </Typography>
       {articlesElements}
     </AppLayout>
   )
