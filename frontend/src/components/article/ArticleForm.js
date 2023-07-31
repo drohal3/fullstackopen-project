@@ -7,31 +7,12 @@ import { gql, useMutation } from '@apollo/client'
 import { addAlert, AlertTypes } from "../../reducers/alertReducer";
 import Paper from "@mui/material/Paper";
 
-import {ALL_ARTICLES} from "../../pages/articles/Articles"
+import { useCreateArticle } from "../../services/graphql/useArticles";
 
-const CREATE_ARTICLE = gql`
-  mutation createArticle($title: String!, $abstract: String, $content: String!) {
-    createArticle(
-      title: $title
-      abstract: $abstract
-      content: $content
-    )
-    {
-      title
-      abstract
-      content
-      author {
-        id
-        nickName
-      }
-      id
-    }
-  }
-`
 
 function ArticleForm() {
   const navigate = useNavigate()
-  const [ createArticle ] = useMutation(CREATE_ARTICLE)
+  const createArticle = useCreateArticle()
   const dispatch = useDispatch()
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,22 +23,9 @@ function ArticleForm() {
 
     try {
         newArticle = await createArticle({
-        variables: {
           title: formData.get("title"),
           abstract: formData.get("abstract"),
           content: formData.get("content")
-        },
-        update: (cache, mutationResult) => {
-          const newArticle = mutationResult.data.createArticle;
-          const data = cache.readQuery({
-            query: ALL_ARTICLES, variables: { authorId: newArticle.author.id }
-          });
-          cache.writeQuery({
-            query: ALL_ARTICLES,
-            variables: { authorId: newArticle.author.id },
-            data: { allArticles: [...data.allArticles, newArticle]
-            }})
-        }
       })
       console.log("new article", newArticle);
       dispatch(addAlert("Article created successfully.", AlertTypes.Success, 3))

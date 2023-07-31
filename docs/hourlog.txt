@@ -39,7 +39,7 @@
                 app design / try and error with MaterialUI
 2023/07/26 - 7h App design considerations (home when not logged in, etc.)
                 solving problems with adding GraphQl to the project
-2023/07/27 - xh refactoring GraphQl backend
+2023/07/27 - 7h refactoring GraphQl backend
                     - moving from index.js to app.js,
                     - solving sync issues (graphQl needs to be started before middleware applied)
                     - added logged in user to context from request.user which was set in middleware
@@ -51,5 +51,7 @@
 2023/07/31 - xh dealing with Apollo cache
                 pre-commit hook to fix formatting
                 createArticle mutation
+                refactoring apollo hooks
+                    - implemented custom hooks for allArticles query and createArticle mutation
 
 TODO: pre-commit hooks

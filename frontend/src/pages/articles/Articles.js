@@ -6,28 +6,14 @@ import { gql, useQuery } from '@apollo/client'
 import Link from "@mui/material/Link";
 import {useState} from "react";
 import {useAuthData} from "../../hooks/useAuthHooks";
-
-export const ALL_ARTICLES = gql`
-  query AllArticles($authorId: ID!) {
-    allArticles(authorId: $authorId) {
-    author {
-      nickName
-      id
-    }
-    title
-    abstract
-    content
-    id
-  }
-  }
-`
+import {useAllArticlesByUserId} from "../../services/graphql/useArticles";
 
 function Articles() {
   const auth = useAuthData()
 
   console.log(auth)
 
-  const articlesResult = useQuery(ALL_ARTICLES, {variables: {authorId: auth.id}})
+  const articlesResult = useAllArticlesByUserId(auth.id)
 
   console.log(articlesResult)
 
