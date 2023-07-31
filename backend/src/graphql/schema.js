@@ -79,9 +79,6 @@ const resolvers = {
         author: author.id
       })
 
-
-
-
       let article = null
 
       try {
