@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "backend-lint-fix": "(cd backend && npm run lint-fix && cd ..)"
+  },
+  "pre-commit": [
+    "backend-lint-fix"
+  ],
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
+}

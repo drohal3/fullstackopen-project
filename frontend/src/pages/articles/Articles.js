@@ -31,7 +31,7 @@ function Articles() {
 
   console.log(articlesResult)
 
-  const articles = articlesResult.loading ? [] : articlesResult.data.allArticles
+  const articles = !articlesResult || articlesResult.loading || !articlesResult.data ? [] : articlesResult.data.allArticles
 
   console.log(articles)
 
@@ -44,15 +44,6 @@ function Articles() {
   return (
     <AppLayout title="Articles">
       <RouterLink to="/articles/create">Add article</RouterLink>
-      <Typography>
-        Tabs - My articles, Public articles?
-      </Typography>
-      <Typography>
-        Add article option will be here
-      </Typography>
-      <Typography>
-        My articles will be here
-      </Typography>
       {articlesElements}
     </AppLayout>
   )

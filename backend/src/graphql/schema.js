@@ -1,4 +1,7 @@
 const Article = require('../mongo/models/article')
+const User = require('../mongo/models/user')
+const { GraphQLError } = require('graphql')
+const { ApolloServerErrorCode } = require('@apollo/server/errors')
 
 const typeDefs = `#graphql
   type User {
@@ -17,6 +20,14 @@ const typeDefs = `#graphql
   type Query {
     hello: String
     allArticles(authorId: ID!): [Article!]!
+  }
+  
+  type Mutation {
+    createArticle(
+      title: String!
+      content: String!
+      abstract: String
+    ): Article!
   }
 `
 
@@ -37,6 +48,49 @@ const resolvers = {
       conditions = conditions.length ? { $and: conditions } : {}
 
       return Article.find(conditions).populate('author')
+    }
+  },
+
+  Mutation: {
+    createArticle: async (root, args, context) => {
+      if (!context.user) {
+        throw new GraphQLError('You are not authorized to perform this action.', {
+          extensions: {
+            code: 'FORBIDDEN'
+          }
+        })
+      }
+
+      console.log(context)
+      const author = await User.findById(context.user._id)
+
+      if (!author) {
+        throw new GraphQLError('You are not authorized to perform this action.', {
+          extensions: {
+            code: 'FORBIDDEN'
+          }
+        })
+      }
+
+      const newArticle = new Article({
+        title: args.title,
+        abstract: args.abstract,
+        content: args.content,
+        author: author.id
+      })
+
+      let article = null
+
+      try {
+        article = await newArticle.save()
+      } catch (e) {
+        throw new GraphQLError(e.message, { // TODO: is this correct way to thro error?
+          // TODO: https://www.apollographql.com/docs/apollo-server/data/errors/#custom-errors
+          code: ApolloServerErrorCode.BAD_USER_INPUT
+        })
+      }
+
+      return article.populate('author')
     }
   }
 }
