@@ -7,7 +7,7 @@ import Link from "@mui/material/Link";
 import {useState} from "react";
 import {useAuthData} from "../../hooks/useAuthHooks";
 
-const ALL_ARTICLES = gql`
+export const ALL_ARTICLES = gql`
   query AllArticles($authorId: ID!) {
     allArticles(authorId: $authorId) {
     author {

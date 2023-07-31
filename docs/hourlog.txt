@@ -49,5 +49,7 @@
                 putting Apollo client devtools into use
                 TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
 2023/07/31 - xh dealing with Apollo cache
+                pre-commit hook to fix formatting
+                createArticle mutation
 
 TODO: pre-commit hooks
