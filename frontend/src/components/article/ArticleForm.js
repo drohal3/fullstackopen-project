@@ -3,9 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { gql, useMutation } from '@apollo/client'
 import { addAlert, AlertTypes } from "../../reducers/alertReducer";
-import Paper from "@mui/material/Paper";
 
 import { useCreateArticle } from "../../services/graphql/useArticles";
 
