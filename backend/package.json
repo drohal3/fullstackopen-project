@@ -28,11 +28,7 @@
     "lint-fix": "npx eslint src --fix",
     "clear_jest": "jest --clearCache"
   },
-  "pre-commit": [
-    "lint-fix"
-  ],
-
-    "eslintConfig": {
+  "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
@@ -61,7 +57,6 @@
     "mongodb-memory-server": "^8.13.0",
     "mongodb-memory-server-global": "^8.13.0",
     "nodemon": "^2.0.22",
-    "pre-commit": "^1.2.2",
     "supertest": "^6.3.3"
   },
   "jest": {
