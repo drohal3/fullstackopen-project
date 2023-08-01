@@ -28,6 +28,12 @@ const typeDefs = `#graphql
       content: String!
       abstract: String
     ): Article!
+    editArticle(
+      id: ID!
+      title: String!
+      content: String!
+      abstract: String
+    ): Article!
     deleteArticle(articleId: ID!): Article
   }
 `
@@ -95,6 +101,28 @@ const resolvers = {
       }
 
       return article.populate('author')
+    },
+
+    editArticle: async (root, data, context) => {
+      if (!context.user) {
+        throw new GraphQLError('You are not authorized to perform this action.', {
+          extensions: {
+            code: 'FORBIDDEN'
+          }
+        })
+      }
+
+      const {id, title, abstract, content} = data
+
+      console.log("data", data)
+      const updatedArticle = await Article.findByIdAndUpdate(id, {title, abstract, content}, {new: true}).populate('author')
+
+      return updatedArticle
+
+    //   TODO: what if article is not found?
+
+
+
     },
 
     deleteArticle: async (root, { articleId }, context) => {
