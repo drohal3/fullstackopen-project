@@ -38,7 +38,7 @@ const resolvers = {
       console.log('====>', context)
       return 'world'
     },
-    allArticles: async (root, {authorId, articleID}, context) => {
+    allArticles: async (root, { authorId, articleID }, context) => {
       // TODO: authentication / errors
       let conditions = []
       if (authorId) {
