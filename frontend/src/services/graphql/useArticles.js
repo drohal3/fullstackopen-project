@@ -66,3 +66,15 @@ export function useCreateArticle () {
   }
 }
 
+export function useDeleteArticle () {
+//   TODO:
+}
+
+export function useUpdateArticle () {
+//   TODO:
+}
+
+export function useGetArticleById () {
+//   TODO:
+}
+

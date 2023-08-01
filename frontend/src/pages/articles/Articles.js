@@ -1,10 +1,6 @@
 import AppLayout from "../../components/layout/AppLayout";
 import Typography from "@mui/material/Typography";
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client'
-
-import Link from "@mui/material/Link";
-import {useState} from "react";
 import {useAuthData} from "../../hooks/useAuthHooks";
 import {useAllArticlesByUserId} from "../../services/graphql/useArticles";
 
@@ -23,9 +19,20 @@ function Articles() {
 
   const articlesElements = (
     <>
-      {articles.map((article) => (<Typography key={article.id}>{JSON.stringify(article)}</Typography>))}
+      {articles.map((article) => {
+        const linkTo = `/articles/${article.id}`
+        return (
+          <>
+            {/*<Typography key={article.id}>{JSON.stringify(article)}</Typography>*/}
+            <Typography>
+              Article: <RouterLink to={linkTo}>{article.title}</RouterLink>
+            </Typography>
+          </>
+        )
+      })}
     </>
   )
+
 
   return (
     <AppLayout title="Articles">

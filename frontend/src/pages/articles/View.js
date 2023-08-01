@@ -1,13 +1,8 @@
 import { useParams } from 'react-router';
 import articles from "../../services/articles";
 import {useEffect, useState} from "react";
-import TopNavLayout from "../layout/TopNavLayout";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import {useSelector} from "react-redux";
+import AppLayout from "../../components/layout/AppLayout";
 import articlesService from "../../services/articles";
-import Cover from "../../components/layout/Cover";
-import Grid from "@mui/material/Grid";
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,6 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
 import {useAuthData} from "../../hooks/useAuthHooks";
+import Typography from "@mui/material/Typography";
 
 
 function ArticleActionButtons( { user, article } ) {
@@ -115,29 +111,13 @@ function View() {
     return (<p>loading...</p>)
   }
 
-  const author = article.author
-
-  // console.log("article", article)
-  // console.log("article author", author)
-  // console.log("user", user)
-
-
   return (
     <>
-      <TopNavLayout>
-        <CssBaseline />
-        <Cover title={article.title}/>
-        <Container component="main">
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <ArticleActionButtons article={article} user={user} />
-            </Grid>
-            <Grid item xs={12}>
-              {article.content}
-            </Grid>
-          </Grid>
-        </Container>
-      </TopNavLayout>
+      <AppLayout>
+        <Typography variant="h1"> {article.title} </Typography>
+        <ArticleActionButtons article={article} user={user} />
+        <Typography>{article.content}</Typography>
+      </AppLayout>
     </>
   )
 }
