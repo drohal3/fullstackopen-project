@@ -1,40 +1,29 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { addAlert, AlertTypes } from "../../reducers/alertReducer";
-
-import { useCreateArticle } from "../../services/graphql/useArticles";
+import {useEffect, useState} from "react";
 
 
-function ArticleForm() {
-  const navigate = useNavigate()
-  const createArticle = useCreateArticle()
-  const dispatch = useDispatch()
-  const handleSubmit = async (event) => {
+function ArticleForm( props ) {
+  const {handleSubmit, articleData} = props
+
+  const [title, setTitle] = useState("")
+  const [abstract, setAbstract] = useState("")
+  const [content, setContent] = useState("")
+
+  useEffect(() => {
+    setTitle(articleData?.title || "")
+    setAbstract(articleData?.abstract || "")
+    setContent(articleData?.content || "")
+  }, [])
+
+  const onSubmit = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
-    let newArticle = null
-
-    try {
-        newArticle = await createArticle({
-          title: formData.get("title"),
-          abstract: formData.get("abstract"),
-          content: formData.get("content")
-      })
-      console.log("new article", newArticle);
-      dispatch(addAlert("Article created successfully.", AlertTypes.Success, 3))
-      navigate(`/articles/${newArticle.data.createArticle.id}`)
-    } catch (e) {
-      dispatch(addAlert("Something went wrong!", AlertTypes.Error, 3))
-    }
+    await handleSubmit({title, abstract, content})
   }
 
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+    <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
       <TextField
         margin="normal"
         required
@@ -43,6 +32,8 @@ function ArticleForm() {
         label="Title"
         name="title"
         autoComplete="title"
+        value={title}
+        onChange={(event) => setTitle(event.target.value)}
         autoFocus
       />
       <TextField
@@ -55,6 +46,8 @@ function ArticleForm() {
         multiline
         name="abstract"
         autoComplete="abstract"
+        value={abstract}
+        onChange={(event) => setAbstract(event.target.value)}
       />
       <TextField
         margin="normal"
@@ -65,6 +58,8 @@ function ArticleForm() {
         name="content"
         autoComplete="content"
         minRows="8"
+        value={content}
+        onChange={(event) => setContent(event.target.value)}
         multiline
       />
       <Button
@@ -73,7 +68,7 @@ function ArticleForm() {
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
       >
-        Create
+        Submit
       </Button>
     </Box>
   )

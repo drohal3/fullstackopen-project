@@ -57,4 +57,6 @@
 2023/08/01 - xh hook for deleting article
                 dealing with apollo client cache after removal of article
                 refactored article view to use graphql
+                added edit article mutation, tested with Postman
+                implemented edit form + refactored create form (reused form)
 

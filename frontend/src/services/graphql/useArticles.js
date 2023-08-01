@@ -20,7 +20,8 @@ export function useArticlesByUserId (authorId) {
 }
 
 export function useArticleById (articleId) {
-  return useQuery(ALL_ARTICLES, {variables: {articleId}})
+  const articlesResult = useQuery(ALL_ARTICLES, {variables: {articleId}})
+  return !articlesResult || articlesResult.loading || !articlesResult.data || articlesResult.data.allArticles.length < 1 ? null : articlesResult.data.allArticles[0]
 }
 
 export const CREATE_ARTICLE = gql`
@@ -114,11 +115,38 @@ export function useDeleteArticle () {
   }
 }
 
+export const UPDATE_ARTICLE = gql`
+  mutation updateArticle($id: ID!, $title: String, $abstract: String, $content: String) {
+    updateArticle(
+      id: $id
+      title: $title
+      abstract: $abstract
+      content: $content
+    )
+    {
+      title
+      abstract
+      content
+      author {
+        id
+        nickName
+      }
+      id
+    }
+  }
+`
+
 export function useUpdateArticle () {
-//   TODO:
+  const [ updateArticleMutationFunction ] = useMutation(UPDATE_ARTICLE)
+
+  return async (aricleData) => {
+  //   TODO: article must belong to user
+    const updatedArticle = await updateArticleMutationFunction({
+      variables: aricleData
+    })
+
+    return updatedArticle
+  }
 }
 
-export function useGetArticleById () {
-//   TODO:
-}
 

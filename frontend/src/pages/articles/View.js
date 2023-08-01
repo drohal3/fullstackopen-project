@@ -96,16 +96,12 @@ function View() {
   const { id } = useParams()
   const user = useAuthData()
 
-  const articlesResult = useArticleById(id)
+  const article = useArticleById(id)
 
-  console.log("articleResult", articlesResult)
-
-  const article = !articlesResult || articlesResult.loading || !articlesResult.data || articlesResult.data.allArticles.length < 1 ? null : articlesResult.data.allArticles[0]
-
-  console.log("article", article)
+  console.log(`article with id ${id}`, article)
 
   if (article === null) {
-    return (<p>404</p>) // TODO: error handling, etc.
+    return (<AppLayout><p>404</p></AppLayout>) // TODO: error handling, etc.
   }
 
   return (

@@ -28,10 +28,10 @@ const typeDefs = `#graphql
       content: String!
       abstract: String
     ): Article!
-    editArticle(
+    updateArticle(
       id: ID!
-      title: String!
-      content: String!
+      title: String
+      content: String
       abstract: String
     ): Article!
     deleteArticle(articleId: ID!): Article
@@ -44,20 +44,24 @@ const resolvers = {
       console.log('====>', context)
       return 'world'
     },
-    allArticles: async (root, { authorId, articleID }, context) => {
+    allArticles: async (root, { authorId, articleId }, context) => {
       // TODO: authentication / errors
       let conditions = []
       if (authorId) {
         conditions = [...conditions, { author: authorId }]
         console.log('--->>>', authorId)
       }
-      if (articleID) {
-        conditions = [...conditions, { id: articleID }]
+      if (articleId) {
+        conditions = [...conditions, { _id: articleId }]
       }
 
       conditions = conditions.length ? { $and: conditions } : {}
 
-      return Article.find(conditions).populate('author')
+      console.log("====> conditions: ", conditions)
+
+      const ret = await Article.find(conditions).populate('author')
+      console.log("ret", ret)
+      return ret
     }
   },
 
@@ -103,7 +107,7 @@ const resolvers = {
       return article.populate('author')
     },
 
-    editArticle: async (root, data, context) => {
+    updateArticle: async (root, data, context) => {
       if (!context.user) {
         throw new GraphQLError('You are not authorized to perform this action.', {
           extensions: {

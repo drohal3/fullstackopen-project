@@ -12,7 +12,6 @@ import NoPage from "./pages/NoPage";
 import SignOut from "./pages/SignOut";
 import User from "./pages/user/User"
 
-import ArticleList from "./pages/articles/List";
 import ArticleView from "./pages/articles/View";
 import ArticleCreate from './pages/articles/Create';
 import ArticleEdit from './pages/articles/Edit';
