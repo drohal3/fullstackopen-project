@@ -39,7 +39,7 @@
                 app design / try and error with MaterialUI
 2023/07/26 - 7h App design considerations (home when not logged in, etc.)
                 solving problems with adding GraphQl to the project
-2023/07/27 - xh refactoring GraphQl backend
+2023/07/27 - 7h refactoring GraphQl backend
                     - moving from index.js to app.js,
                     - solving sync issues (graphQl needs to be started before middleware applied)
                     - added logged in user to context from request.user which was set in middleware
@@ -48,6 +48,12 @@
                 starting to read about caching: https://www.apollographql.com/docs/react/caching/overview
                 putting Apollo client devtools into use
                 TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
-2023/07/31 - xh dealing with Apollo cache
+2023/07/31 - 7h dealing with Apollo cache
+                pre-commit hook to fix formatting
+                createArticle mutation
+                refactoring apollo hooks
+                    - implemented custom hooks for allArticles query and createArticle mutation
 
-TODO: pre-commit hooks
+2023/08/01 - xh hook for deleting article
+                dealing with apollo client cache after removal of article
+

@@ -1,41 +1,33 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import articles from "../../services/articles";
 import { useDispatch } from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {addAlert, AlertTypes} from "../../reducers/alertReducer";
-import {useAuthData} from "../../hooks/useAuthHooks";
-import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
+import { addAlert, AlertTypes } from "../../reducers/alertReducer";
+
+import { useCreateArticle } from "../../services/graphql/useArticles";
 
 
 function ArticleForm() {
   const navigate = useNavigate()
-  const user = useAuthData()
-
+  const createArticle = useCreateArticle()
   const dispatch = useDispatch()
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
-    const articleData = {
-      title: formData.get("title"),
-      abstract: formData.get("abstract"),
-      content: formData.get("content")
-    }
-
-    console.log(articleData)
-
-    if (user) {
-      articles.setToken(user.token)
-    }
+    let newArticle = null
 
     try {
-      const newArticle = await articles.create(articleData);
-      console.log(newArticle);
+        newArticle = await createArticle({
+          title: formData.get("title"),
+          abstract: formData.get("abstract"),
+          content: formData.get("content")
+      })
+      console.log("new article", newArticle);
       dispatch(addAlert("Article created successfully.", AlertTypes.Success, 3))
-      navigate(`/articles/${newArticle.id}`)
+      navigate(`/articles/${newArticle.data.createArticle.id}`)
     } catch (e) {
       dispatch(addAlert("Something went wrong!", AlertTypes.Error, 3))
     }
