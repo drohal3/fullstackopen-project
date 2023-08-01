@@ -2,14 +2,14 @@ import AppLayout from "../../components/layout/AppLayout";
 import Typography from "@mui/material/Typography";
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {useAuthData} from "../../hooks/useAuthHooks";
-import {useAllArticlesByUserId} from "../../services/graphql/useArticles";
+import {useArticlesByUserId} from "../../services/graphql/useArticles";
 
 function Articles() {
   const auth = useAuthData()
 
   console.log(auth)
 
-  const articlesResult = useAllArticlesByUserId(auth.id)
+  const articlesResult = useArticlesByUserId(auth.id)
 
   console.log(articlesResult)
 

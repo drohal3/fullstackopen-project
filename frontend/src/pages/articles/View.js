@@ -16,7 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
 import {useAuthData} from "../../hooks/useAuthHooks";
-import {useDeleteArticle} from "../../services/graphql/useArticles";
+import {useArticleById, useArticlesByUserId, useDeleteArticle} from "../../services/graphql/useArticles";
 import Typography from "@mui/material/Typography";
 
 
@@ -43,6 +43,7 @@ function ArticleActionButtons( { user, article } ) {
   };
 
   const handleDelete = async () => {
+    console.log("deleting article")
     try {
       await deleteArticle(article.id)
     } catch (e) {
@@ -92,25 +93,19 @@ function ArticleActionButtons( { user, article } ) {
 }
 
 function View() {
-  const [article, setArticle] = useState(null);
   const { id } = useParams()
-
-  useEffect( () => {
-    async function fetchArticle() {
-      const articleLoaded = await articlesService.get(id);
-      setArticle(articleLoaded);
-    }
-    fetchArticle()
-
-    console.log("useEffect article")
-    const article = articles.get(id)
-    setArticle(article)
-  }, [])
-
   const user = useAuthData()
 
-  if (!article) {
-    return (<p>loading...</p>)
+  const articlesResult = useArticleById(id)
+
+  console.log("articleResult", articlesResult)
+
+  const article = !articlesResult || articlesResult.loading || !articlesResult.data || articlesResult.data.allArticles.length < 1 ? null : articlesResult.data.allArticles[0]
+
+  console.log("article", article)
+
+  if (article === null) {
+    return (<p>404</p>) // TODO: error handling, etc.
   }
 
   return (

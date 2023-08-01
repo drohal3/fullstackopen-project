@@ -1,8 +1,8 @@
 import {gql, useMutation, useQuery} from "@apollo/client";
 
 export const ALL_ARTICLES = gql`
-  query AllArticles($authorId: ID!) {
-    allArticles(authorId: $authorId) {
+  query AllArticles($authorId: ID, $articleId: ID) {
+    allArticles(authorId: $authorId, articleId: $articleId) {
       author {
         nickName
         id
@@ -15,8 +15,12 @@ export const ALL_ARTICLES = gql`
   }
 `
 
-export function useAllArticlesByUserId (authorId) {
+export function useArticlesByUserId (authorId) {
   return useQuery(ALL_ARTICLES, {variables: {authorId}})
+}
+
+export function useArticleById (articleId) {
+  return useQuery(ALL_ARTICLES, {variables: {articleId}})
 }
 
 export const CREATE_ARTICLE = gql`

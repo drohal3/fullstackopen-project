@@ -19,7 +19,7 @@ const typeDefs = `#graphql
   
   type Query {
     hello: String
-    allArticles(authorId: ID!): [Article!]!
+    allArticles(authorId: ID, articleId: ID): [Article!]!
   }
   
   type Mutation {
@@ -38,12 +38,15 @@ const resolvers = {
       console.log('====>', context)
       return 'world'
     },
-    allArticles: async (root, args, context) => {
+    allArticles: async (root, {authorId, articleID}, context) => {
       // TODO: authentication / errors
       let conditions = []
-      if (args.authorId) {
-        conditions = [...conditions, { author: args.authorId }]
-        console.log('--->>>', args.authorId)
+      if (authorId) {
+        conditions = [...conditions, { author: authorId }]
+        console.log('--->>>', authorId)
+      }
+      if (articleID) {
+        conditions = [...conditions, { id: articleID }]
       }
 
       conditions = conditions.length ? { $and: conditions } : {}
