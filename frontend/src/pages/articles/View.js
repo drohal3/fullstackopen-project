@@ -16,6 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addAlert, AlertTypes} from "../../reducers/alertReducer";
 import {useAuthData} from "../../hooks/useAuthHooks";
+import {useDeleteArticle} from "../../services/graphql/useArticles";
 import Typography from "@mui/material/Typography";
 
 
@@ -23,6 +24,7 @@ function ArticleActionButtons( { user, article } ) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const deleteArticle = useDeleteArticle()
   console.log("user", user)
   console.log("article", article)
 
@@ -42,7 +44,7 @@ function ArticleActionButtons( { user, article } ) {
 
   const handleDelete = async () => {
     try {
-      await articlesService.remove(article.id)
+      await deleteArticle(article.id)
     } catch (e) {
       dispatch(addAlert("Something went wrong!", AlertTypes.Error, 3))
       handleClose()

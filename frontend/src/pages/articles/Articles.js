@@ -22,12 +22,12 @@ function Articles() {
       {articles.map((article) => {
         const linkTo = `/articles/${article.id}`
         return (
-          <>
+          <div key={article.id}>
             {/*<Typography key={article.id}>{JSON.stringify(article)}</Typography>*/}
             <Typography>
               Article: <RouterLink to={linkTo}>{article.title}</RouterLink>
             </Typography>
-          </>
+          </div>
         )
       })}
     </>

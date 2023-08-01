@@ -28,7 +28,7 @@ const typeDefs = `#graphql
       content: String!
       abstract: String
     ): Article!
-    deleteArticle(id: ID!): Article
+    deleteArticle(articleId: ID!): Article
   }
 `
 
@@ -94,7 +94,7 @@ const resolvers = {
       return article.populate('author')
     },
 
-    deleteArticle: async (root, { id }, context) => {
+    deleteArticle: async (root, { articleId }, context) => {
       if (!context.user) {
         throw new GraphQLError('You are not authorized to perform this action.', {
           extensions: {
@@ -103,7 +103,7 @@ const resolvers = {
         })
       }
 
-      const article = await Article.findById(id)
+      const article = await Article.findById(articleId)
 
       if (article.author.toString() !== context.user.id) {
         throw new GraphQLError('You are not authorized to perform this action.', {
@@ -113,7 +113,7 @@ const resolvers = {
         })
       }
 
-      return Article.findByIdAndDelete(id).populate('author')
+      return Article.findByIdAndDelete(articleId).populate('author')
     }
   }
 }

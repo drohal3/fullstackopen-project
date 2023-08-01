@@ -48,10 +48,12 @@
                 starting to read about caching: https://www.apollographql.com/docs/react/caching/overview
                 putting Apollo client devtools into use
                 TODO: apollo client cache!!! https://www.apollographql.com/docs/react/caching/overview
-2023/07/31 - xh dealing with Apollo cache
+2023/07/31 - 7h dealing with Apollo cache
                 pre-commit hook to fix formatting
                 createArticle mutation
                 refactoring apollo hooks
                     - implemented custom hooks for allArticles query and createArticle mutation
 
-TODO: pre-commit hooks
+2023/08/01 - xh hook for deleting article
+                dealing with apollo client cache after removal of article
+
