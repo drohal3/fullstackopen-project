@@ -94,7 +94,7 @@ const resolvers = {
       return article.populate('author')
     },
 
-    deleteArticle: async (root, {id}, context) => {
+    deleteArticle: async (root, { id }, context) => {
       if (!context.user) {
         throw new GraphQLError('You are not authorized to perform this action.', {
           extensions: {
