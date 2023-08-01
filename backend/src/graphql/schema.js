@@ -112,17 +112,14 @@ const resolvers = {
         })
       }
 
-      const {id, title, abstract, content} = data
+      const { id, title, abstract, content } = data
 
-      console.log("data", data)
-      const updatedArticle = await Article.findByIdAndUpdate(id, {title, abstract, content}, {new: true}).populate('author')
+      console.log('data', data)
+      const updatedArticle = await Article.findByIdAndUpdate(id, { title, abstract, content }, { new: true }).populate('author')
 
       return updatedArticle
 
-    //   TODO: what if article is not found?
-
-
-
+      //   TODO: what if article is not found?
     },
 
     deleteArticle: async (root, { articleId }, context) => {
