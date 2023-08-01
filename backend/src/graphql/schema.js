@@ -57,10 +57,10 @@ const resolvers = {
 
       conditions = conditions.length ? { $and: conditions } : {}
 
-      console.log("====> conditions: ", conditions)
+      console.log('====> conditions: ', conditions)
 
       const ret = await Article.find(conditions).populate('author')
-      console.log("ret", ret)
+      console.log('ret', ret)
       return ret
     }
   },
