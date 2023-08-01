@@ -66,8 +66,48 @@ export function useCreateArticle () {
   }
 }
 
+// TODO:
+export const DELETE_ARTICLE = gql`
+  mutation deleteArticle($articleId: ID!) {
+    deleteArticle(
+      articleId: $articleId
+    ) {
+      id
+      title
+      abstract
+      content
+      author {
+          id
+          nickName
+      }
+    }
+  }
+`
+
 export function useDeleteArticle () {
-//   TODO:
+  const [ deleteArticleMutationFunction ] = useMutation(DELETE_ARTICLE)
+
+  return async (articleId) => {
+    const deletedArticle = await deleteArticleMutationFunction({
+      variables: {articleId},
+      update: (cache, mutationResult) => {
+        const deletedArticle = mutationResult.data.deleteArticle
+        cache.modify({
+          fields: {
+            allArticles(existingArticles, { readField }) {
+              return existingArticles.filter(
+                (articleRef) => deletedArticle.id !== readField('id', articleRef)
+              )
+            }
+          }
+        })
+      }
+    })
+
+    console.log('deleted article', deletedArticle)
+
+    return deletedArticle
+  }
 }
 
 export function useUpdateArticle () {
