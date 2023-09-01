@@ -54,9 +54,10 @@
                 refactoring apollo hooks
                     - implemented custom hooks for allArticles query and createArticle mutation
 
-2023/08/01 - xh hook for deleting article
+2023/08/01 - 8h hook for deleting article
                 dealing with apollo client cache after removal of article
                 refactored article view to use graphql
                 added edit article mutation, tested with Postman
                 implemented edit form + refactored create form (reused form)
+2023/09/01 - 3h small refactoring, defining functionality to develop next, base for user view and network view
 

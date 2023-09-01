@@ -16,7 +16,8 @@ export const ALL_ARTICLES = gql`
 `
 
 export function useArticlesByUserId (authorId) {
-  return useQuery(ALL_ARTICLES, {variables: {authorId}})
+  const articlesResult = useQuery(ALL_ARTICLES, {variables: {authorId}})
+  return !articlesResult || articlesResult.loading || !articlesResult.data ? [] : articlesResult.data.allArticles
 }
 
 export function useArticleById (articleId) {

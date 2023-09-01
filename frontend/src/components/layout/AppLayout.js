@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import PeopleIcon from '@mui/icons-material/People';
 import LoginIcon from '@mui/icons-material/Login';
 import LockIcon from '@mui/icons-material/Lock';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -58,19 +59,29 @@ function AppLayout(props) {
             <ListItemText primary="Articles" />
           </ListItemButton>
         </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={RouterLink} to="/network">
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Network" />
+          </ListItemButton>
+        </ListItem>
 
       </List>
       <Divider />
       <List>
         <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <AccountCircleOutlinedIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={`${user.firstName} ${user.lastName}`}
-          />
+          <ListItemButton component={RouterLink} to={`/users/${user.id}`}>
+            <ListItemAvatar>
+              <Avatar>
+                <AccountCircleOutlinedIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={`${user.firstName} ${user.lastName}`}
+            />
+          </ListItemButton>
         </ListItem>
         <Divider />
         <ListItem disablePadding>

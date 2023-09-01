@@ -9,11 +9,7 @@ function Articles() {
 
   console.log(auth)
 
-  const articlesResult = useArticlesByUserId(auth.id)
-
-  console.log(articlesResult)
-
-  const articles = !articlesResult || articlesResult.loading || !articlesResult.data ? [] : articlesResult.data.allArticles
+  const articles = useArticlesByUserId(auth.id)
 
   console.log(articles)
 

@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import NoPage from "./pages/NoPage";
 import SignOut from "./pages/SignOut";
 import User from "./pages/user/User"
+import Network from "./pages/network/Network";
 
 import ArticleView from "./pages/articles/View";
 import ArticleCreate from './pages/articles/Create';
@@ -43,6 +44,8 @@ function App() {
 
         <Route path="articles/:id" element={<ArticleView />} />
         <Route path="articles/:id/edit" element={<ArticleEdit />} />
+
+        <Route path="/network" element={<Network />} />
       </Routes>
     </BrowserRouter>
   );
